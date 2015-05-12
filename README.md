@@ -10,7 +10,7 @@ Chinese version：
 	模式:
 	1. 無限制時間
 	2. 限制時間
-	3. 多人對戰
+	3. 多人共同遊戲（maybe 81x81)
 
 	如何出唯一解題目（初步想法）:
 	1. 隨機填入數字法出題
@@ -31,3 +31,13 @@ Schedule:
 		4. discuss what type board is easy or difficult
 		5. simple visualize solve process
 
+Reference:
+
+	1. [Sudoku Puzzles Generating: from Easy to Evil]:
+		http://zhangroup.aporc.org/images/files/Paper_3485.pdf
+	2. [Sudoku Generation and Difficulty Metrics]
+		http://www.longwood.edu/assets/mathematics/Team2975_ProblemB.pdf
+	3. [The Model and Algorithm to Estimate the Difficulty Levels of Sudoku Puzzles]
+		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
+	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
+		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
