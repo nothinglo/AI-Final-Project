@@ -23,6 +23,7 @@ English version:
 	TBA.
 
 Schedule:
+
 	2015/05/12-2015/05/19:
 		1. reaserch problem for generate different level
 		2. write code for solve sudoku
