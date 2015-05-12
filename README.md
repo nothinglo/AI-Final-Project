@@ -22,10 +22,11 @@ English version:
 
 	TBA.
 
-2015/05/12-2015/05/19:
-	1. reaserch problem for generate different level
-	2. write code for solve sudoku
-	3. more efficiency algorithm
-	4. discuss what type board is easy or difficult
-	5. simple visualize solve process
+Schedule:
+	2015/05/12-2015/05/19:
+		1. reaserch problem for generate different level
+		2. write code for solve sudoku
+		3. more efficiency algorithm
+		4. discuss what type board is easy or difficult
+		5. simple visualize solve process
 
