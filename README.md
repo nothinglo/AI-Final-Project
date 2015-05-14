@@ -1,6 +1,6 @@
 # AI-Final-Project
 
-Chinese version：
+Chinese version:
 
 	目標: 數獨出題
 	1. 使用者可自行選擇題目難易
