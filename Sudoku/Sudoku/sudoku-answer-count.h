@@ -9,9 +9,8 @@
 #ifndef __Sudoku__sudoku_answer_count__
 #define __Sudoku__sudoku_answer_count__
 
-#include <stdio.h>
 #include "globalVar.h"
 
-int sudoku_answer_count(int matrix[][sudokuSize]);
+int sudoku_answer_count(int board[][sudokuSize]);
 
 #endif /* defined(__Sudoku__sudoku_answer_count__) */

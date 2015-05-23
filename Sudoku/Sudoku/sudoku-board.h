@@ -1,6 +1,6 @@
 //
 //  sudoku-board.h
-//  Sudoku
+//  AI-Final-Project
 //
 //  Created by uglyman.nothinglo on 2015/5/23.
 //  Copyright (c) 2015年 nothinglo. All rights reserved.
