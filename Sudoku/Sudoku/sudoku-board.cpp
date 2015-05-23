@@ -1,6 +1,6 @@
 //
 //  sudoku-board.cpp
-//  Sudoku
+//  AI-Final-Project
 //
 //  Created by uglyman.nothinglo on 2015/5/23.
 //  Copyright (c) 2015年 nothinglo. All rights reserved.
@@ -10,11 +10,6 @@
 #include <limits.h>
 #include "sudoku-board.h"
 #include "sudoku-answer-count.h"
-
-
-#include "consoleUI.h"
-#include <iostream>
-using namespace std;
 
 bool boardCheck(const int board[][sudokuSize], int x, int y, int num) {
     int i, j, time_1, time_2;
