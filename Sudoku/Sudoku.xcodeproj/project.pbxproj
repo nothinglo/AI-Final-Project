@@ -1,0 +1,265 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4EA167DE1B10BBC700428F78 /* sudoku-generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167DD1B10BBC700428F78 /* sudoku-generator.cpp */; };
+		4EA167E81B10BCB300428F78 /* sudoku-answer-count.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167E61B10BCB300428F78 /* sudoku-answer-count.cpp */; };
+		4EA167EB1B10CC3D00428F78 /* consoleUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167E91B10CC3D00428F78 /* consoleUI.cpp */; };
+		4EA167EF1B10CD3100428F78 /* sudoku-board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167ED1B10CD3100428F78 /* sudoku-board.cpp */; };
+		4EA167F21B10DC9700428F78 /* inputChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167F01B10DC9700428F78 /* inputChecker.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4EA167D81B10BBC600428F78 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4EA167DA1B10BBC700428F78 /* Sudoku */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sudoku; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EA167DD1B10BBC700428F78 /* sudoku-generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-generator.cpp"; sourceTree = "<group>"; };
+		4EA167E61B10BCB300428F78 /* sudoku-answer-count.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-answer-count.cpp"; sourceTree = "<group>"; };
+		4EA167E71B10BCB300428F78 /* sudoku-answer-count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-answer-count.h"; sourceTree = "<group>"; };
+		4EA167E91B10CC3D00428F78 /* consoleUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = consoleUI.cpp; sourceTree = "<group>"; };
+		4EA167EA1B10CC3D00428F78 /* consoleUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = consoleUI.h; sourceTree = "<group>"; };
+		4EA167EC1B10CC8A00428F78 /* globalVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globalVar.h; sourceTree = "<group>"; };
+		4EA167ED1B10CD3100428F78 /* sudoku-board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-board.cpp"; sourceTree = "<group>"; };
+		4EA167EE1B10CD3100428F78 /* sudoku-board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-board.h"; sourceTree = "<group>"; };
+		4EA167F01B10DC9700428F78 /* inputChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputChecker.cpp; sourceTree = "<group>"; };
+		4EA167F11B10DC9700428F78 /* inputChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inputChecker.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4EA167D71B10BBC600428F78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4EA167D11B10BBC600428F78 = {
+			isa = PBXGroup;
+			children = (
+				4EA167DC1B10BBC700428F78 /* Sudoku */,
+				4EA167DB1B10BBC700428F78 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4EA167DB1B10BBC700428F78 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4EA167DA1B10BBC700428F78 /* Sudoku */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4EA167DC1B10BBC700428F78 /* Sudoku */ = {
+			isa = PBXGroup;
+			children = (
+				4EA167DD1B10BBC700428F78 /* sudoku-generator.cpp */,
+				4EA167E61B10BCB300428F78 /* sudoku-answer-count.cpp */,
+				4EA167E71B10BCB300428F78 /* sudoku-answer-count.h */,
+				4EA167E91B10CC3D00428F78 /* consoleUI.cpp */,
+				4EA167EA1B10CC3D00428F78 /* consoleUI.h */,
+				4EA167EC1B10CC8A00428F78 /* globalVar.h */,
+				4EA167ED1B10CD3100428F78 /* sudoku-board.cpp */,
+				4EA167EE1B10CD3100428F78 /* sudoku-board.h */,
+				4EA167F01B10DC9700428F78 /* inputChecker.cpp */,
+				4EA167F11B10DC9700428F78 /* inputChecker.h */,
+			);
+			path = Sudoku;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4EA167D91B10BBC600428F78 /* Sudoku */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EA167E11B10BBC700428F78 /* Build configuration list for PBXNativeTarget "Sudoku" */;
+			buildPhases = (
+				4EA167D61B10BBC600428F78 /* Sources */,
+				4EA167D71B10BBC600428F78 /* Frameworks */,
+				4EA167D81B10BBC600428F78 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sudoku;
+			productName = Sudoku;
+			productReference = 4EA167DA1B10BBC700428F78 /* Sudoku */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4EA167D21B10BBC600428F78 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = nothinglo;
+				TargetAttributes = {
+					4EA167D91B10BBC600428F78 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 4EA167D51B10BBC600428F78 /* Build configuration list for PBXProject "Sudoku" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4EA167D11B10BBC600428F78;
+			productRefGroup = 4EA167DB1B10BBC700428F78 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EA167D91B10BBC600428F78 /* Sudoku */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4EA167D61B10BBC600428F78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EA167EB1B10CC3D00428F78 /* consoleUI.cpp in Sources */,
+				4EA167F21B10DC9700428F78 /* inputChecker.cpp in Sources */,
+				4EA167EF1B10CD3100428F78 /* sudoku-board.cpp in Sources */,
+				4EA167E81B10BCB300428F78 /* sudoku-answer-count.cpp in Sources */,
+				4EA167DE1B10BBC700428F78 /* sudoku-generator.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4EA167DF1B10BBC700428F78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4EA167E01B10BBC700428F78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4EA167E21B10BBC700428F78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4EA167E31B10BBC700428F78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4EA167D51B10BBC600428F78 /* Build configuration list for PBXProject "Sudoku" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EA167DF1B10BBC700428F78 /* Debug */,
+				4EA167E01B10BBC700428F78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EA167E11B10BBC700428F78 /* Build configuration list for PBXNativeTarget "Sudoku" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EA167E21B10BBC700428F78 /* Debug */,
+				4EA167E31B10BBC700428F78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4EA167D21B10BBC600428F78 /* Project object */;
+}
