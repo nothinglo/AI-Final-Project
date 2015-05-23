@@ -25,7 +25,13 @@ Schedule:
 		4. reaserch problem for generate different level
 		5. discuss what type board is easy or difficult
 		6. simple visualize solve process
-
+	
+Events:
+	
+	[Milestone #2]: Finish at 2015/05/24 by Uglyman.nothinglo
+					Has level 1 to 11 random board
+					It can use by [./exe] [level:1~11]
+	
 Project Plan:
 
 	/*** Milestone #1 ***/
