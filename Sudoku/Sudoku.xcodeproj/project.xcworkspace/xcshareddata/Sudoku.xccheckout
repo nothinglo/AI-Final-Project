@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>63D6377B-1398-40B2-A9D7-534464714D00</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Sudoku</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>24FC24E8AF461F072C7C1B4F3DCF7CEBB30D5087</key>
+		<string>https://github.com/nothinglo/AI-Final-Project.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Sudoku/Sudoku.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>24FC24E8AF461F072C7C1B4F3DCF7CEBB30D5087</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nothinglo/AI-Final-Project.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>24FC24E8AF461F072C7C1B4F3DCF7CEBB30D5087</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>24FC24E8AF461F072C7C1B4F3DCF7CEBB30D5087</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Final-Project</string>
+		</dict>
+	</array>
+</dict>
+</plist>
