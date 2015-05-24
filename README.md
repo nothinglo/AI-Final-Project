@@ -29,9 +29,10 @@ Schedule:
 Events:
 	
 	[Milestone #2]: Finish at 2015/05/24 by Uglyman.nothinglo
-					Has level 1 to 11 random board
+					Has level 1 to 10 random board
 					It can use by [./exe] [level:1~10]
-					All level can be generated in 1 sec.
+					All level can be generated in 1 sec
+					Level is judged by the number of spaces (first version)
 	
 Project Plan:
 
