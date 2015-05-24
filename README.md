@@ -28,15 +28,35 @@ Schedule:
 	
 Events:
 	
-	[Milestone #2]: Finish at 2015/05/24 by Uglyman.nothinglo
+	[Milestone #2]: 
+					"first version":
+					Finish at 2015/05/24 by Uglyman.nothinglo
 					Has level 1 to 10 random board
 					It can use by [./exe] [level:1~10]
 					All level can be generated in 1 sec
-					Level is judged by the number of spaces (first version)
+					Level is judged by the number of spaces
+					
+					method :
+					while(not done) {
+						generateSpaceBoard (not unique solution)
+						gradientDescentToBoard (let unique)
+					}
 
+					"2-th version":
+					level : 1 to 11 (All level can be generated in 1 sec)
+					It can use by [./exe] [level:1~11] [-a]
+					
+					method :
+					1. give a finished board
+					2. disturb board
+					3.
+					while(space not enough) {
+						let a board cell to space that can be unique solution.
+					}
 Problem:
 
-	[Milestone #2]: level 11 may can't be generated in 1 sec.
+	(Resolved) [Milestone #2]: level 11 may can't be generated in 1 sec.
+			   (Resolved in 2-th version)
 	
 Project Plan:
 
