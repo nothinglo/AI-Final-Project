@@ -11,6 +11,7 @@
 #include "consoleUI.h"
 #include "sudoku-board.h"
 #include "sudoku-answer-count.h"
+#include "sudoku-another-way.h"
 #include "inputChecker.h"
 
 using namespace std;
@@ -21,7 +22,12 @@ int main(int argc, const char * argv[]) {
     }
     int level = atoi(argv[1]);
     int board[sudokuSize][sudokuSize];
-    generateRandomSpaceBoard(board, level * levelSpaceStep);
+    
+	if (argc == 3 && string(argv[2]) == "-a") {
+		genSudokuAnotherWay(board, level * levelSpaceStep);
+	} else {
+		generateRandomSpaceBoard(board, level * levelSpaceStep);
+	}
     
     printUIBoard(board);
     printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
