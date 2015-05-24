@@ -66,16 +66,15 @@ bool generateSpaceBoard(int board[][sudokuSize], const int spaceCount) {
             board[x][y] = -1;
         }
     }
-    int space = sudokuLength, cutRange = 42;
+    
     for(int i = 0; i < sudokuSize; ++i) {
         for(int j = 0; j < sudokuSize; ++j) {
             if(board[i][j] == 0) {
-                --space;
                 const vector<int> & numbers = maybeNumbers(board, i, j);
                 if(numbers.size() == 0) {
                     return false;
                 }
-                if(space < cutRange) {
+                if(countSpace(board) < 25) {
                     boardCell c(0);
                     for(int k = 0; k < numbers.size(); ++k) {
                         board[i][j] = numbers[k];
@@ -127,14 +126,11 @@ bool gradientDescentToBoard(int board[][sudokuSize]) {
     }
     return true;
 }
-
 void generateRandomSpaceBoard(int board[][sudokuSize], const int spaceCount) {
     srand((unsigned int)time(NULL));
     bool isDone;
     do {
-        cout << "generateSpaceBoard() ing" << endl;
         while(generateSpaceBoard(board, spaceCount) == false || sudoku_answer_count(board) == 0);
-        cout << "gradientDescentToBoard() ing" << endl;
         isDone = gradientDescentToBoard(board);
     } while( isDone == false );
 }
