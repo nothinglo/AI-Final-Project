@@ -19,7 +19,7 @@ void findPlace(int board[][sudokuSize], int* sum, int x, int y){
         ++(*sum);
         return;
     }
-    if(board[x][y] != 0) {
+    if(board[x][y] >= 1 && board[x][y] <= sudokuSize) {
         findPlace(board, sum, x+1, y);
     } else {
         for(num = 1; num <= sudokuSize; ++num) {
