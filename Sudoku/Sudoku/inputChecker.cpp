@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 bool checkParameter(int argc, const char * argv[]) {
-    if(argc != 2) {
+    if(argc != 2 && argc != 3) {
         fprintf(stderr, "./exe [level: easy %d, difficult %d\n", minLevel, maxLevel);
         return false;
     }
