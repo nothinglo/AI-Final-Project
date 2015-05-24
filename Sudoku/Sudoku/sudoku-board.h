@@ -9,6 +9,7 @@
 #ifndef __Sudoku__sudoku_board__
 #define __Sudoku__sudoku_board__
 
+#include <iostream>
 #include <vector>
 #include "globalVar.h"
 
