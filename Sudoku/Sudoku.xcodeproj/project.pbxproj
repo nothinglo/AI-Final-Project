@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E84ECF21B12503B00CF670C /* sudoku-another-way.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E84ECF01B12503B00CF670C /* sudoku-another-way.cpp */; };
 		4EA167DE1B10BBC700428F78 /* sudoku-generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167DD1B10BBC700428F78 /* sudoku-generator.cpp */; };
 		4EA167E81B10BCB300428F78 /* sudoku-answer-count.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167E61B10BCB300428F78 /* sudoku-answer-count.cpp */; };
 		4EA167EB1B10CC3D00428F78 /* consoleUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EA167E91B10CC3D00428F78 /* consoleUI.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E84ECF01B12503B00CF670C /* sudoku-another-way.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-another-way.cpp"; sourceTree = "<group>"; };
+		4E84ECF11B12503B00CF670C /* sudoku-another-way.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-another-way.h"; sourceTree = "<group>"; };
 		4EA167DA1B10BBC700428F78 /* Sudoku */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sudoku; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA167DD1B10BBC700428F78 /* sudoku-generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-generator.cpp"; sourceTree = "<group>"; };
 		4EA167E61B10BCB300428F78 /* sudoku-answer-count.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-answer-count.cpp"; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				4EA167EE1B10CD3100428F78 /* sudoku-board.h */,
 				4EA167F01B10DC9700428F78 /* inputChecker.cpp */,
 				4EA167F11B10DC9700428F78 /* inputChecker.h */,
+				4E84ECF01B12503B00CF670C /* sudoku-another-way.cpp */,
+				4E84ECF11B12503B00CF670C /* sudoku-another-way.h */,
 			);
 			path = Sudoku;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			files = (
 				4EA167EB1B10CC3D00428F78 /* consoleUI.cpp in Sources */,
 				4EA167F21B10DC9700428F78 /* inputChecker.cpp in Sources */,
+				4E84ECF21B12503B00CF670C /* sudoku-another-way.cpp in Sources */,
 				4EA167EF1B10CD3100428F78 /* sudoku-board.cpp in Sources */,
 				4EA167E81B10BCB300428F78 /* sudoku-answer-count.cpp in Sources */,
 				4EA167DE1B10BBC700428F78 /* sudoku-generator.cpp in Sources */,
@@ -258,6 +264,7 @@
 				4EA167E31B10BBC700428F78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -106,25 +106,21 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 	}
 
 	int blank_count = spaceCount;
-
-	for (int i = 0; i < sudokuSize; i++) {
-		for (int j = 0; j < sudokuSize; j++) {
-			while (blank_count > 0) {
-				int x, y;
-				x = rand() % sudokuSize;
-				y = rand() % sudokuSize;
-				int temp = board[x][y];
-
-				if (temp != 0) {
-					board[x][y] = 0;
-					if (sudoku_answer_count(board) == 1) {
-						blank_count--;
-					}
-					else {
-						board[x][y] = temp;
-					}
-				}
-			}
-		}
-	}
+    
+    while (blank_count > 0) {
+        int x, y;
+        x = rand() % sudokuSize;
+        y = rand() % sudokuSize;
+        int temp = board[x][y];
+        
+        if (temp != 0) {
+            board[x][y] = 0;
+            if (sudoku_answer_count(board) == 1) {
+                --blank_count;
+            }
+            else {
+                board[x][y] = temp;
+            }
+        }
+    }
 }
