@@ -33,6 +33,10 @@ Events:
 					It can use by [./exe] [level:1~10]
 					All level can be generated in 1 sec
 					Level is judged by the number of spaces (first version)
+
+Problem:
+
+	[Milestone #2]: level 11 may can't be generated in 1 sec.
 	
 Project Plan:
 
