@@ -10,6 +10,7 @@
 #include "globalVar.h"
 #include "consoleUI.h"
 #include "sudoku-board.h"
+#include "sudoku-digging.h"
 #include "sudoku-answer-count.h"
 #include "sudoku-another-way.h"
 #include "inputChecker.h"
