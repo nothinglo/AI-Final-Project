@@ -28,19 +28,19 @@ bool boardCheck(const int board[][sudokuSize], int x, int y, int num) {
     }
     /*diagnosis
     if(x == y){
-		for(i = 0; i < sudokuSize; ++i) {
-			if(board[i][i] == num) {
-				return false;
-			}
+	for(i = 0; i < sudokuSize; ++i) {
+		if(board[i][i] == num) {
+			return false;
 		}
 	}
-	else if(x == 8-y){
-		for(i = 0; i < sudokuSize; ++i) {
-			if(board[i][8-i] == num) {
-				return false;
-			}
+     }
+     else if(x == 8-y){
+	for(i = 0; i < sudokuSize; ++i) {
+		if(board[i][8-i] == num) {
+			return false;
 		}
 	}
+    }
     */
     return true;
 }
