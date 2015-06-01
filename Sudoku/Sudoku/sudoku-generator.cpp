@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
     int level = atoi(argv[1]);
     int board[sudokuSize][sudokuSize];
     
-	if (argc == 3 && string(argv[2]) == "-a") {
+	if (argc == 3 && (strcmp(argv[2], "-a")==0)) {
 		genSudokuAnotherWay(board, level * levelSpaceStep);
 	} else {
 		generateRandomSpaceBoard(board, level * levelSpaceStep);
