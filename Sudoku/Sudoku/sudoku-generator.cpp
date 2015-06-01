@@ -25,10 +25,12 @@ int main(int argc, const char * argv[]) {
     
 	if (argc == 3 && (strcmp(argv[2], "-a")==0)) {
 		genSudokuAnotherWay(board, level * levelSpaceStep);
-	} else {
+	} else if(argc == 3 && string(argv[2]) == "-dig"){
+		generateDiggingBoard(board);
+	}
+	else {
 		generateRandomSpaceBoard(board, level * levelSpaceStep);
 	}
-    
     printUIBoard(board);
     printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
 
