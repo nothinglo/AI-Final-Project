@@ -26,7 +26,7 @@ int main(int argc, const char * argv[]) {
     
 	if (argc == 3 && (strcmp(argv[2], "-a")==0)) {
 		genSudokuAnotherWay(board, level * levelSpaceStep);
-	} else if(argc == 3 && string(argv[2]) == "-dig"){
+	} else if(argc == 3 && (strcmp(argv[2], "-dig")==0)){
 		generateDiggingBoard(board);
 	}
 	else {
