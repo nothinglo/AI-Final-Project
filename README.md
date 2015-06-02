@@ -123,3 +123,7 @@ Reference:
 		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
 	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
 		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
+	5. [Programming Sudoku]
+		see ch4 and ch5
+		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
+		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
