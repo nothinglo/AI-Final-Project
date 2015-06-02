@@ -16,7 +16,8 @@
 #include "inputChecker.h"
 
 using namespace std;
-
+//arguments:
+//[level] [method]
 int main(int argc, const char * argv[]) {
     if(checkParameter(argc, argv) == false) {
         return -1;

@@ -10,6 +10,7 @@
 #include "sudoku-board.h"
 
 void findPlace(int board[][sudokuSize], int* sum, int x, int y){
+	//BackTrackingSolver?   ask by jiayeli 
     int num;
     
     if(x==9) {
@@ -22,7 +23,7 @@ void findPlace(int board[][sudokuSize], int* sum, int x, int y){
     if(board[x][y] >= 1 && board[x][y] <= sudokuSize) {
         findPlace(board, sum, x+1, y);
     } else {
-        for(num = 1; num <= sudokuSize; ++num) {
+        for(num = 1; num <= sudokuSize; ++num) {//try 1~9
             if(boardCheck(board, x, y, num)) {
                 board[x][y] = num;
                 findPlace(board, sum, x+1, y);
