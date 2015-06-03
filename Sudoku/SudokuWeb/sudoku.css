@@ -1,0 +1,59 @@
+div.cell {
+        width:40px;
+        height:40px;
+}
+
+a.sudoku {
+	font-family:Consolas;
+        font-size:12px;
+	color:#000000;
+}
+
+a.sudokumin {
+	font-family:Consolas;
+        font-size:10px;
+	color:#000000;
+	text-decoration:none;
+}
+
+td.sol {
+        width:30px;
+        height:30px;
+        text-align:center;
+        font-family:Consolas;
+        font-size:24px;
+        background:#FFFFFF;
+        border:1px solid #000000;
+}
+
+input.cell {
+        width:40px;
+        height:40px;
+        font-size:30px;
+        text-align:center;
+        padding-top:1px;
+        background:#FFFFFF;
+        border:0px solid red;
+        font-family:Consolas;
+}
+
+h1.sudoku {
+	margin:0px;
+	padding:0px;
+    font-family:Consolas;
+}
+
+input#clock {
+	border:1px solid #000000;
+	background:#DDDDDD;
+	width:378px;
+	font-size:19px;
+        text-align:center;
+}
+
+div#sudoku {
+	background:#D2E9FF;
+	padding:10px;
+	border:1px solid #000000;
+	width:385px;
+}
