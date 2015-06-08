@@ -469,7 +469,9 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		return false;
 	}
 
-
+	printf("boardStatus should be one of -1, 0, or 1. if program reached here, something's wrong.");
+	getchar();
+	return false;
 
 }
 int logicalSolver(int board[][sudokuSize])
