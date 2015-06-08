@@ -89,11 +89,12 @@ bool gradientDescentDigToBoard(int board[][sudokuSize]) {
 		boardCell & c = boardCells[0];
 		board[c.x][c.y] = c.num;
 	}
+    return true;
 }
 void generateDiggingBoard(int board[][sudokuSize]) {
 	srand((unsigned int)time(NULL));
 	bool isDone;
-	cout<<"Generating a space board: "<<endl;
+    printf("Generating a space board:\n");
 	do {
 		while(generateDigSpaceBoard(board, 0) == false || sudoku_answer_count(board) == 0);
 		isDone = gradientDescentDigToBoard(board);
@@ -103,7 +104,7 @@ void generateDiggingBoard(int board[][sudokuSize]) {
 	char again[10];
 	while(1){
 		printf("Where do you want to dig(1 1 ~ 9 9) ? Enter \"no\" to leave\n");
-		gets(again);
+        scanf("%s", again);
 		if(strcmp(again,"no") == 0)
 			break;
 
@@ -119,15 +120,15 @@ void generateDiggingBoard(int board[][sudokuSize]) {
 		}
 		int ori=board[x-1][y-1];
 		board[x-1][y-1] = 0;
-		if(sudoku_answer_count(board) != 1){
-			printf("Got more then one solution, can't dig here!\n", x, y);
+        int answerCount = sudoku_answer_count(board);
+		if(answerCount != 1){
+			printf("Got more then one solution, can't dig here(%d, %d)!\n", x, y);
 			board[x-1][y-1] = ori;	// since you can't dig here, put the old number back.
 		}
 		else{
 			printf("New board:\n");
 			printUIBoard(board);
-			printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
+			printf("ansCount = %d, countSpace = %d\n", answerCount, countSpace(board));
 		}
-
 	}
 }

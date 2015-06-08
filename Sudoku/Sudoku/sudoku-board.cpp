@@ -143,19 +143,7 @@ bool gradientDescentToBoard(int board[][sudokuSize]) {
         boardCell & c = boardCells[0];
         board[c.x][c.y] = c.num;
     }
-    //avoid no blank
-    if(countSpace(board) == 0){
-		while(1){
-			int x = rand() % sudokuSize;
-			int y = rand() % sudokuSize;
-			int ori = board[x][y];
-			board[x][y] = 0;
-			if(sudoku_answer_count(board) == 1)
-				return true;
-			else
-				board[x][y] = ori;
-		}
-	}
+    return true;
 }
 void generateRandomSpaceBoard(int board[][sudokuSize], const int spaceCount) {
     srand((unsigned int)time(NULL));

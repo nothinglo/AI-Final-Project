@@ -342,9 +342,8 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 
 	int spaceNum=0;
 	int minCandidateCount=sudokuSize+1;
-	int bestX, bestY;
+	int bestX = -1, bestY = -1;
 	bool bestCandidate[sudokuSize]={0};
-	bool noAns=false;
 	for (int x=0; x<sudokuSize; x++)
 	{
 		for (int y=0; y<sudokuSize; y++)
