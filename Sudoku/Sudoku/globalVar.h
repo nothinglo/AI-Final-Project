@@ -9,9 +9,12 @@
 #ifndef Sudoku_globalVar_h
 #define Sudoku_globalVar_h
 
+#include <cmath>
+
 const int sudoku_Sub_Size = 3;
 const int sudokuSize = sudoku_Sub_Size * sudoku_Sub_Size; // 9
 const int sudokuLength = sudokuSize * sudokuSize; // 81
+const int block_size = sqrt(sudokuSize);
 
 const int minLevel = 1;
 const int maxLevel = 11;

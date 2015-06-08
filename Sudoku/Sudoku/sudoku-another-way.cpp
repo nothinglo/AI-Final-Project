@@ -1,85 +1,10 @@
-#include "sudoku-board.h"
-#include "sudoku-answer-count.h"
+#include "sudoku-operateBoard.h"
 #include "sudoku-another-way.h"
 
-int block_size;
 
-void randomChange2Cols(int board[sudokuSize][sudokuSize], int col1, int col2) {
-	for (int i = 0; i < sudokuSize; i++) {
-		int temp = board[i][col2];
-		board[i][col2] = board[i][col1];
-		board[i][col1] = temp;
-	}
-}
-void randomChange2Rows(int board[sudokuSize][sudokuSize], int row1, int row2) {
-	for (int i = 0; i < sudokuSize; i++) {
-		int temp = board[row2][i];
-		board[row2][i] = board[row1][i];
-		board[row1][i] = temp;
-	}
-}
-
-void randomChange2BlockCols(int board[sudokuSize][sudokuSize], int col1, int col2) {
-	for (int n = 0; n < block_size; n++) {
-		for (int i = 0; i < sudokuSize; i++) {
-			int temp = board[i][col2 + n];
-			board[i][col2 + n] = board[i][col1 + n];
-			board[i][col1 + n] = temp;
-		}
-	}
-}
-
-void randomChange2BlockRows(int board[sudokuSize][sudokuSize], int row1, int row2) {
-	for (int n = 0; n < block_size; n++) {
-		for (int i = 0; i < sudokuSize; i++) {
-			int temp = board[row2 + n][i];
-			board[row2 + n][i] = board[row1 + n][i];
-			board[row1 + n][i] = temp;
-		}
-	}
-}
-
-void randomChange2Units(int board[sudokuSize][sudokuSize])
-{
-	int choice = rand() % 2;
-	switch (choice) {
-	case 0: // change 2 cols or 2 rows in same block
-	{
-		int entry1 = rand() % sudokuSize;
-		int entry2 = (entry1 + (rand() % (block_size - 1) + 1));
-
-		// if entry1 & entry2 are not in the same block, revise entry2
-		if (entry2 / block_size != entry1 / block_size) 
-			entry2 -= block_size;
-
-		rand() % 2 == 0 ? randomChange2Cols(board, entry1, entry2) :
-			randomChange2Rows(board, entry1, entry2);
-	}
-		break;
-	case 1: // change 2 block-cols or 2 block-rows
-	{
-		vector<int> random2Entry;
-		for (int i = 0; i < sudokuSize; i++) {
-			// 4 * 4 sudoku will push {0, 2}
-			// 9 * 9 sudoku will push {0, 3, 6}
-			// ...
-			if (i % block_size == 0) {
-				random2Entry.push_back(i);
-			}
-		}
-		std::random_shuffle(random2Entry.begin(), random2Entry.end());
-
-		rand() % 2 == 0 ? randomChange2BlockCols(board, random2Entry[0], random2Entry[1]) :
-			randomChange2BlockRows(board, random2Entry[0], random2Entry[1]);
-	}
-		break;
-	}
-}
-
+#include "consoleUI.h"
 void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 	srand((unsigned int)time(NULL));
-
-	block_size = sqrt(sudokuSize);
 
 	int answered_board[9][9] = {
 		{ 5, 3, 4, 6, 7, 8, 9, 1, 2 },
@@ -107,6 +32,8 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 
 	int blank_count = spaceCount;
     
+//    printUIBoard(board);
+//    printf("answerCount = %d\n", sudoku_answer_count(board));
     while (blank_count > 0) {
         int x, y;
         x = rand() % sudokuSize;
@@ -117,6 +44,8 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
             board[x][y] = 0;
             if (sudoku_answer_count(board) == 1) {
                 --blank_count;
+//                printUIBoard(board);
+//                printf("answerCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
             }
             else {
                 board[x][y] = temp;

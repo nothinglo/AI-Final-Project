@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "globalVar.h"
-#include "sudoku-board.h"
+#include "sudoku-operateBoard.h"
 
 using namespace std;
 

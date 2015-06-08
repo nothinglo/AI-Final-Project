@@ -1,7 +1,6 @@
 
-#include "sudoku-board.h"
+#include "sudoku-operateBoard.h"
 #include "consoleUI.h"
-#include "sudoku-answer-count.h"
 
 int logicalSolver(int board[][sudokuSize]);
 

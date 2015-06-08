@@ -11,7 +11,6 @@
 #include <algorithm>
 #include <time.h>
 #include "sudoku-digging.h"
-#include "sudoku-answer-count.h"
 #include "consoleUI.h"
 
 bool generateDigSpaceBoard(int board[][sudokuSize], const int spaceCount) {

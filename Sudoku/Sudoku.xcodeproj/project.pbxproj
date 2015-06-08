@@ -11,10 +11,10 @@
 		4E81DD001B2576EF00E51ED6 /* inputChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF21B2576EF00E51ED6 /* inputChecker.cpp */; };
 		4E81DD011B2576EF00E51ED6 /* logicalSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF41B2576EF00E51ED6 /* logicalSolver.cpp */; };
 		4E81DD021B2576EF00E51ED6 /* sudoku-another-way.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF61B2576EF00E51ED6 /* sudoku-another-way.cpp */; };
-		4E81DD031B2576EF00E51ED6 /* sudoku-answer-count.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF81B2576EF00E51ED6 /* sudoku-answer-count.cpp */; };
-		4E81DD041B2576EF00E51ED6 /* sudoku-board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCFA1B2576EF00E51ED6 /* sudoku-board.cpp */; };
+		4E81DD041B2576EF00E51ED6 /* sudoku-genBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCFA1B2576EF00E51ED6 /* sudoku-genBoard.cpp */; };
 		4E81DD051B2576EF00E51ED6 /* sudoku-digging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCFC1B2576EF00E51ED6 /* sudoku-digging.cpp */; };
 		4E81DD061B2576EF00E51ED6 /* sudoku-generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCFE1B2576EF00E51ED6 /* sudoku-generator.cpp */; };
+		4E81DD091B257B2900E51ED6 /* sudoku-operateBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DD071B257B2900E51ED6 /* sudoku-operateBoard.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,13 +39,13 @@
 		4E81DCF51B2576EF00E51ED6 /* logicalSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logicalSolver.h; sourceTree = "<group>"; };
 		4E81DCF61B2576EF00E51ED6 /* sudoku-another-way.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-another-way.cpp"; sourceTree = "<group>"; };
 		4E81DCF71B2576EF00E51ED6 /* sudoku-another-way.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-another-way.h"; sourceTree = "<group>"; };
-		4E81DCF81B2576EF00E51ED6 /* sudoku-answer-count.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-answer-count.cpp"; sourceTree = "<group>"; };
-		4E81DCF91B2576EF00E51ED6 /* sudoku-answer-count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-answer-count.h"; sourceTree = "<group>"; };
-		4E81DCFA1B2576EF00E51ED6 /* sudoku-board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-board.cpp"; sourceTree = "<group>"; };
-		4E81DCFB1B2576EF00E51ED6 /* sudoku-board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-board.h"; sourceTree = "<group>"; };
+		4E81DCFA1B2576EF00E51ED6 /* sudoku-genBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-genBoard.cpp"; sourceTree = "<group>"; };
+		4E81DCFB1B2576EF00E51ED6 /* sudoku-genBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-genBoard.h"; sourceTree = "<group>"; };
 		4E81DCFC1B2576EF00E51ED6 /* sudoku-digging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-digging.cpp"; sourceTree = "<group>"; };
 		4E81DCFD1B2576EF00E51ED6 /* sudoku-digging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-digging.h"; sourceTree = "<group>"; };
 		4E81DCFE1B2576EF00E51ED6 /* sudoku-generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-generator.cpp"; sourceTree = "<group>"; };
+		4E81DD071B257B2900E51ED6 /* sudoku-operateBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "sudoku-operateBoard.cpp"; sourceTree = "<group>"; };
+		4E81DD081B257B2900E51ED6 /* sudoku-operateBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sudoku-operateBoard.h"; sourceTree = "<group>"; };
 		4EA167DA1B10BBC700428F78 /* Sudoku */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sudoku; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,10 +88,10 @@
 				4E81DCF51B2576EF00E51ED6 /* logicalSolver.h */,
 				4E81DCF61B2576EF00E51ED6 /* sudoku-another-way.cpp */,
 				4E81DCF71B2576EF00E51ED6 /* sudoku-another-way.h */,
-				4E81DCF81B2576EF00E51ED6 /* sudoku-answer-count.cpp */,
-				4E81DCF91B2576EF00E51ED6 /* sudoku-answer-count.h */,
-				4E81DCFA1B2576EF00E51ED6 /* sudoku-board.cpp */,
-				4E81DCFB1B2576EF00E51ED6 /* sudoku-board.h */,
+				4E81DD071B257B2900E51ED6 /* sudoku-operateBoard.cpp */,
+				4E81DD081B257B2900E51ED6 /* sudoku-operateBoard.h */,
+				4E81DCFA1B2576EF00E51ED6 /* sudoku-genBoard.cpp */,
+				4E81DCFB1B2576EF00E51ED6 /* sudoku-genBoard.h */,
 				4E81DCFC1B2576EF00E51ED6 /* sudoku-digging.cpp */,
 				4E81DCFD1B2576EF00E51ED6 /* sudoku-digging.h */,
 				4E81DCFE1B2576EF00E51ED6 /* sudoku-generator.cpp */,
@@ -158,11 +158,11 @@
 				4E81DD001B2576EF00E51ED6 /* inputChecker.cpp in Sources */,
 				4E81DD011B2576EF00E51ED6 /* logicalSolver.cpp in Sources */,
 				4E81DD051B2576EF00E51ED6 /* sudoku-digging.cpp in Sources */,
-				4E81DD031B2576EF00E51ED6 /* sudoku-answer-count.cpp in Sources */,
 				4E81DD061B2576EF00E51ED6 /* sudoku-generator.cpp in Sources */,
+				4E81DD091B257B2900E51ED6 /* sudoku-operateBoard.cpp in Sources */,
 				4E81DD021B2576EF00E51ED6 /* sudoku-another-way.cpp in Sources */,
 				4E81DCFF1B2576EF00E51ED6 /* consoleUI.cpp in Sources */,
-				4E81DD041B2576EF00E51ED6 /* sudoku-board.cpp in Sources */,
+				4E81DD041B2576EF00E51ED6 /* sudoku-genBoard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

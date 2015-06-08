@@ -9,11 +9,13 @@
 #include <iostream>
 #include "globalVar.h"
 #include "consoleUI.h"
-#include "sudoku-board.h"
+#include "sudoku-operateBoard.h"
+#include "sudoku-genBoard.h"
 #include "sudoku-digging.h"
-#include "sudoku-answer-count.h"
 #include "sudoku-another-way.h"
 #include "inputChecker.h"
+
+#include "logicalSolver.h"
 
 using namespace std;
 //arguments:
@@ -29,12 +31,15 @@ int main(int argc, const char * argv[]) {
 		genSudokuAnotherWay(board, level * levelSpaceStep);
 	} else if(argc == 3 && (strcmp(argv[2], "-dig")==0)){
 		generateDiggingBoard(board);
-	}
-	else {
+    } else if(argc == 3 && (strcmp(argv[2], "-f") == 0)) {
+        generateByFileInputBoard(board, argv[1]);
+    } else {
 		generateRandomSpaceBoard(board, level * levelSpaceStep);
 	}
     printUIBoard(board);
     printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
 
+    logicalSolver(board);
+    
     return 0;
 }
