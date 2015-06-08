@@ -9,6 +9,10 @@
 #include "sudoku-operateBoard.h"
 #include <fstream>
 
+#include <algorithm>// std::random_shuffle
+#include <string>	// getline
+#include <time.h>	// time
+
 void generateByFileInputBoard(int board[][sudokuSize], const char *fileName) {
     string tmp;
     fstream file(fileName);
