@@ -306,7 +306,7 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 				bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, &returnNum, &returnX, &returnY);
 				if (foundInBlock)
 				{
-					printf("found in Block\n");	// seems can handle the problem with just x and y? it never get in here...
+					printf("found in Block\n");	
 					putNumberHere( board, returnNum, returnX, returnY);
 					updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
 					updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
@@ -315,17 +315,17 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 				{
 					printf("Can't find a certain step\n");
 					stuck=true;
-/*					for (int num=0; num<sudokuSize; num++)			
+					/*					for (int num=0; num<sudokuSize; num++)			
 					{
-						printf("Num %d: \n", num+1);
-						for (int x=0; x<sudokuSize; x++)
-						{
-							for (int y=0; y<sudokuSize; y++)
-							{
-								printf("%d ", canNumBeHere[num][x][y]);
-							}
-							printf("\n");
-						}
+					printf("Num %d: \n", num+1);
+					for (int x=0; x<sudokuSize; x++)
+					{
+					for (int y=0; y<sudokuSize; y++)
+					{
+					printf("%d ", canNumBeHere[num][x][y]);
+					}
+					printf("\n");
+					}
 					}*/
 				}
 
@@ -473,9 +473,9 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 	return false;
 
 }
-int logicalSolver(int board[][sudokuSize])
+
+void initCanNumBeHere(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 {
-	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
 
 	// initailize canNumBeHere
 	for (int num=0; num<sudokuSize; num++)
@@ -490,11 +490,78 @@ int logicalSolver(int board[][sudokuSize])
 
 	}
 
+}
+
+bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY)
+{
+	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
+	initCanNumBeHere(board, canNumBeHere);
+
+	bool waitingNumInThisX[sudokuSize][sudokuSize];	// [pos][num], true means this position still doesn't have that number
+	bool waitingNumInThisY[sudokuSize][sudokuSize];
+	bool waitingNumInThisBlock[sudokuSize][sudokuSize];
+
+
+	bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, returnNum, returnX, returnY);
+	if (foundInX)
+	{
+		printf("found in X\n");
+		return true;
+
+		// after putting this number down, other cell will be effected, update these
+
+		// but since we don't expect to do this hint repeatly, we just recalculate all the data when we need to give a hint
+		// instead of maintaining the datas
+
+		//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);	
+		//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
+	}
+	else
+	{
+		bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, returnNum, returnX, returnY);
+		if (foundInY)
+		{
+			printf("found in Y\n");
+			return true;
+
+			//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+			//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
+		}
+		else{
+			bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, returnNum, returnX, returnY);
+			if (foundInBlock)
+			{
+				printf("found in Block\n");	
+
+				return true;
+
+				//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+				//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
+			}
+			else
+			{
+				printf("Can't find a certain step\n");
+				return false;
+			}
+
+		}
+	}
+
+}
+
+int logicalSolver(int board[][sudokuSize])
+{
+	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
+	initCanNumBeHere(board, canNumBeHere);
+
 	bool waitingNumInThisX[sudokuSize][sudokuSize];	// [pos][num], true means this position still doesn't have that number
 	bool waitingNumInThisY[sudokuSize][sudokuSize];
 	bool waitingNumInThisBlock[sudokuSize][sudokuSize];
 
 	initWaitingNum( board,  waitingNumInThisX,  waitingNumInThisY,  waitingNumInThisBlock);
+
+	printf("Finished initializing data\n");
+	getchar();
 
 	bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
 	if (guessSuccess)
@@ -508,28 +575,28 @@ int logicalSolver(int board[][sudokuSize])
 		printUIBoard(board);
 	}
 
-		/*
-		fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
-		int guessX, guessY;
-		bool candidate[sudokuSize];
-		int boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
+	/*
+	fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
+	int guessX, guessY;
+	bool candidate[sudokuSize];
+	int boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
 
-		if (boardStatus==0)
-		{
-		printf("x: %d, y: %d, candidate: ", guessX, guessY);	
-		for (int num=0; num<sudokuSize; num++)
-		{
-		if (candidate[num])
-		{
-		printf(" %d", num+1);
-		}
-		}
-		printf("\n");
-		}
-		if (boardStatus==-1)
-		printf("fuck...");
+	if (boardStatus==0)
+	{
+	printf("x: %d, y: %d, candidate: ", guessX, guessY);	
+	for (int num=0; num<sudokuSize; num++)
+	{
+	if (candidate[num])
+	{
+	printf(" %d", num+1);
+	}
+	}
+	printf("\n");
+	}
+	if (boardStatus==-1)
+	printf("fuck...");
 
-		*/
+	*/
 
-		return 0;
+	return 0;
 }
