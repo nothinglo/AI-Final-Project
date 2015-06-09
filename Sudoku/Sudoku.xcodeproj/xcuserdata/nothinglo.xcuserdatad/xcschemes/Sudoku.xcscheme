@@ -59,12 +59,12 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "11 -a"
-            isEnabled = "NO">
+            argument = "11"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "input.txt -f"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

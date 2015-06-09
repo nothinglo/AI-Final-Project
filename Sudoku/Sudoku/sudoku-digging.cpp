@@ -103,12 +103,12 @@ void generateDiggingBoard(int board[][sudokuSize]) {
 	char again[10];
 	while(1){
 		printf("Where do you want to dig(1 1 ~ 9 9) ? Enter \"no\" to leave\n");
-        scanf_s("%s", again);
+        scanf("%s", again);
 		if(strcmp(again,"no") == 0)
 			break;
 
 		int x=-1,y=-1;
-		sscanf_s(again, " %d %d", &x, &y);
+		sscanf(again, " %d %d", &x, &y);
 		if(!(1 <= x && x <= sudokuSize && 1 <= y && y <= sudokuSize)){
 			printf("(%d, %d) is infeasible.\n", x, y);
 			continue;

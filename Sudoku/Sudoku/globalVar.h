@@ -10,6 +10,7 @@
 #define Sudoku_globalVar_h
 
 #include <cmath>
+#include <limits>
 
 const int sudoku_Sub_Size = 3;
 const int sudokuSize = sudoku_Sub_Size * sudoku_Sub_Size; // 9
@@ -20,4 +21,7 @@ const int minLevel = 1;
 const int maxLevel = 11;
 
 const int levelSpaceStep = 5;
+
+const int InfiniteSolution = std::numeric_limits<int>::max();
+
 #endif

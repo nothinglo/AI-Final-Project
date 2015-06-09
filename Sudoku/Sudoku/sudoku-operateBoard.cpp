@@ -13,6 +13,16 @@
 #include <string>	// getline
 #include <time.h>	// time
 
+
+#include "consoleUI.h"
+
+void copyBoard(const int board[][sudokuSize], int nBoard[][sudokuSize]) {
+    for (int i = 0; i < sudokuSize; ++i) {
+        for (int j = 0; j < sudokuSize; ++j) {
+            nBoard[i][j] = board[i][j];
+        }
+    }
+}
 void generateByFileInputBoard(int board[][sudokuSize], const char *fileName) {
     string tmp;
     fstream file(fileName);
@@ -36,32 +46,33 @@ void generateByFileInputBoard(int board[][sudokuSize], const char *fileName) {
     }
     getline(file, tmp);
 }
-void findPlace(int board[][sudokuSize], int* sum, int x, int y){
-    //BackTrackingSolver?   ask by jiayeli
-    int num;
-    
-    if(x==9) {
+void findPlace(int board[][sudokuSize], int* sum, const int threshold, int x, int y){
+    if(x == sudokuSize) {
         ++y, x = 0;
     }
-    if(y==9) {
+    if(y == sudokuSize) {
         ++(*sum);
         return;
     }
     if(board[x][y] >= 1 && board[x][y] <= sudokuSize) {
-        findPlace(board, sum, x+1, y);
+        findPlace(board, sum, threshold, x+1, y);
     } else {
-        for(num = 1; num <= sudokuSize; ++num) {//try 1~9
+        for(int num = 1; num <= sudokuSize; ++num) { //try 1~9
             if(boardCheck(board, x, y, num)) {
                 board[x][y] = num;
-                findPlace(board, sum, x+1, y);
+                findPlace(board, sum, threshold, x+1, y);
+                if(*sum == threshold) {
+                    return;
+                }
                 board[x][y] = 0;
             }
         }
     }
 }
-int sudoku_answer_count(int board[][sudokuSize]) {
-    int sum = 0;
-    findPlace(board, &sum, 0, 0);
+int sudoku_answer_count(const int board[][sudokuSize], const int threshold) {
+    int sum = 0, tmpBoard[sudokuSize][sudokuSize];
+    copyBoard(board, tmpBoard);
+    findPlace(tmpBoard, &sum, threshold, 0, 0);
     return sum;
 }
 
@@ -134,19 +145,32 @@ bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const 
         { 2, 8, 7, 4, 1, 9, 6, 3, 5 },
         { 3, 4, 5, 2, 8, 6, 1, 7, 9 },
     };
-    
-    // disturb the board
     for (int i = 0; i < 100; i++) {
         randomChange2Units(answered_board);
     }
+    copyBoard(answered_board, board);
     
-    // copy data from answered_board to board
-    for (int i = 0; i < sudokuSize; i++) {
-        for (int j = 0; j < sudokuSize; j++) {
-            board[i][j] = answered_board[i][j];
+    const int threshold = 55, step = spaceCount - threshold;
+    int space = spaceCount;
+    if(spaceCount > threshold) {
+        while (space > step) {
+            int x, y;
+            x = rand() % sudokuSize;
+            y = rand() % sudokuSize;
+            int temp = board[x][y];
+            
+            if (temp != 0) {
+                board[x][y] = 0;
+                if (sudoku_answer_count(board, 2) == 1) {
+                    --space;
+                }
+                else {
+                    board[x][y] = temp;
+                }
+            }
         }
     }
-    for(int i = 0; i < spaceCount; ++i) {
+    for(int i = 0; i < space; ++i) {
         int index = rand() % sudokuLength;
         int x = index / sudokuSize;
         int y = index % sudokuSize;
@@ -174,6 +198,45 @@ bool generateSpaceBoard_NonUniqueSolution(int board[][sudokuSize], const int spa
             board[x][y] = -1;
         }
     }
+//    int non_space = 0, randRange = 20;
+//    for(int i = 0; i < sudokuSize; ++i) {
+//        for(int j = 0; j < sudokuSize; ++j) {
+//            if(board[i][j] == 0) {
+//                ++non_space;
+//                vector<int> numbers = maybeNumbers(board, i, j);
+//                if(numbers.size() == 0) {
+//                    return false;
+//                }
+//                if(non_space > randRange) {
+//                    boardCell c(100);
+//                    printf("nonSpace = %d\n", non_space);
+//                    for(int k = 0; k < numbers.size(); ++k) {
+//                        board[i][j] = numbers[k];
+//                        printUIBoard(board);
+//                        int count = sudoku_answer_count(board, c.solutions);
+//                        printf("i = %d, j = %d, k = %d, count = %d, cs = %d\n", i, j, k, count, c.solutions);
+//                        if(count != 0 && (count < c.solutions || c.null)) {
+//                            c = boardCell(i, j, numbers[k], count);
+//                        }
+//                    }
+//                    if(c.null) {
+//                        return false;
+//                    }
+//                    board[i][j] = c.num;
+//                } else {
+//                    board[i][j] = numbers[rand() % numbers.size()];
+////                    do {
+////                        int index = rand() % numbers.size();
+////                        board[i][j] = numbers[index];
+////                        numbers.erase(numbers.begin() + index);
+////                    } while(sudoku_answer_count(board, 1) == 0);
+//                }
+//            } else {
+//                board[i][j] = 0;
+//            }
+//        }
+//    }
+    
     int space = sudokuLength, cutRange = 42;
     for(int i = 0; i < sudokuSize; ++i) {
         for(int j = 0; j < sudokuSize; ++j) {
@@ -206,7 +269,9 @@ bool generateSpaceBoard_NonUniqueSolution(int board[][sudokuSize], const int spa
     }
     return true;
 }
-
+bool generateSpaceBoard_NonUniqueSolution_ByRandomWalk(int board[][sudokuSize], const int spaceCount) {
+    return true;
+}
 void randomChange2Cols(int board[sudokuSize][sudokuSize], int col1, int col2) {
     for (int i = 0; i < sudokuSize; i++) {
         int temp = board[i][col2];

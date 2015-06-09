@@ -24,16 +24,10 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 	}
 
 	// copy data from answered_board to board
-	for (int i = 0; i < sudokuSize; i++) {
-		for (int j = 0; j < sudokuSize; j++) {
-			board[i][j] = answered_board[i][j];
-		}
-	}
+    copyBoard(answered_board, board);
 
 	int blank_count = spaceCount;
-    
-//    printUIBoard(board);
-//    printf("answerCount = %d\n", sudoku_answer_count(board));
+
     while (blank_count > 0) {
         int x, y;
         x = rand() % sudokuSize;
@@ -42,10 +36,8 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
         
         if (temp != 0) {
             board[x][y] = 0;
-            if (sudoku_answer_count(board) == 1) {
+            if (sudoku_answer_count(board, 2) == 1) {
                 --blank_count;
-//                printUIBoard(board);
-//                printf("answerCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
             }
             else {
                 board[x][y] = temp;

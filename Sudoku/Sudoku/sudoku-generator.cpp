@@ -34,12 +34,10 @@ int main(int argc, const char * argv[]) {
     } else if(argc == 3 && (strcmp(argv[2], "-f") == 0)) {
         generateByFileInputBoard(board, argv[1]);
     } else {
-		generateRandomSpaceBoard(board, level * levelSpaceStep);
+		generateRandomSpaceBoard(board, level * levelSpaceStep + 1);
 	}
     printUIBoard(board);
     printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
-
-    logicalSolver(board);
     
     return 0;
 }
