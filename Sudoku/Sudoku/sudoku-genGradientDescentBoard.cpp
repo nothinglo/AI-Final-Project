@@ -50,7 +50,7 @@ const boardCell descentBoardCell(int board[][sudokuSize], int & Threshold) {
     return boardCells[0];
 }
 const boardCell descentBoardCell(int board[][sudokuSize]) {
-    int Threshold = 7000;
+    int Threshold = min(UpperBoundOfFindSolution, sudoku_answer_count(board, UpperBoundOfFindSolution));
     return descentBoardCell(board, Threshold);
 }
 bool gradientDescentToBoard(int board[][sudokuSize]) {

@@ -24,4 +24,6 @@ const int levelSpaceStep = 5;
 
 const int InfiniteSolution = std::numeric_limits<int>::max();
 
+const int UpperBoundOfFindSolution = 7000;
+
 #endif
