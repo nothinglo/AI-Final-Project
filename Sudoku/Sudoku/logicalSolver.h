@@ -35,3 +35,9 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
+
+
+bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+
+bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);

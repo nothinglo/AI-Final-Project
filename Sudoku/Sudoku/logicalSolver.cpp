@@ -13,13 +13,13 @@ void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]
 
 	for (int numI=0; numI<sudokuSize; numI++) // this cell is occupied
 	{
-		canNumBeHere[numI][posX][posY]=false;
+		canNumBeHere[posX][posY][numI]=false;
 	}
 
 	for (int i=0; i<sudokuSize; i++)	// won't see same number again in same col or row
 	{
-		canNumBeHere[num][i][posY]=false;
-		canNumBeHere[num][posX][i]=false;
+		canNumBeHere[i][posY][num]=false;
+		canNumBeHere[posX][i][num]=false;
 	}
 
 	int blockMinX=(posX/3)*3;
@@ -29,7 +29,7 @@ void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]
 	{
 		for (int count3Y=0; count3Y<3; count3Y++)
 		{
-			canNumBeHere[num][blockMinX+count3X][blockMinY+count3Y]=false;
+			canNumBeHere[blockMinX+count3X][blockMinY+count3Y][num]=false;
 		}
 	}
 	return;
@@ -168,7 +168,7 @@ bool findNumXDir(bool waitingNumInThisX[sudokuSize][sudokuSize], bool canNumBeHe
 				int count=0;
 				for(int y=0; y<sudokuSize; y++)
 				{
-					if(canNumBeHere[num][x][y])
+					if(canNumBeHere[x][y][num])
 					{
 						*returnX=x;
 						*returnY=y;
@@ -204,7 +204,7 @@ bool findNumYDir(bool waitingNumInThisY[sudokuSize][sudokuSize], bool canNumBeHe
 				int count=0;
 				for (int x=0; x<sudokuSize; x++)
 				{
-					if(canNumBeHere[num][x][y])
+					if(canNumBeHere[x][y][num])
 					{
 						*returnX=x;
 						*returnY=y;
@@ -244,7 +244,7 @@ bool findNumBlock(bool waitingNumInThisBlock[sudokuSize][sudokuSize], bool canNu
 					for (int count3Y=0; count3Y<3; count3Y++)
 					{
 
-						if(canNumBeHere[num][baseX+count3X][baseY+count3Y])
+						if(canNumBeHere[baseX+count3X][baseY+count3Y][num])
 						{
 
 							*returnX=baseX+count3X;
@@ -302,7 +302,8 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 				updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
 				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 			}
-			else{
+			else
+			{
 				bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, &returnNum, &returnX, &returnY);
 				if (foundInBlock)
 				{
@@ -313,8 +314,14 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 				}
 				else
 				{
+
 					printf("Can't find a certain step\n");
+
 					stuck=true;
+
+
+
+					// for debugging
 					/*					for (int num=0; num<sudokuSize; num++)			
 					{
 					printf("Num %d: \n", num+1);
@@ -322,11 +329,13 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 					{
 					for (int y=0; y<sudokuSize; y++)
 					{
-					printf("%d ", canNumBeHere[num][x][y]);
+					printf("%d ", canNumBeHere[x][y][num]);
 					}
 					printf("\n");
 					}
 					}*/
+					// for debugging
+
 				}
 
 			}
@@ -334,6 +343,35 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 		//		getchar();
 	}
 	return;
+}
+
+bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
+{
+	printf("Trying twinsEliminationInX\n");
+	bool twinX=twinsEliminationInX(canNumBeHere);
+
+	if (twinX)
+	{
+		printf("Twin Elimination in X helped us eliminated some possibilities, now recheck if we can find some certain number to fill in.\n");
+	}
+	else
+	{
+	printf("Trying twinsEliminationInY\n");
+
+		bool twinY=twinsEliminationInY(canNumBeHere);
+		if (twinY)
+		{
+
+			printf("Twin Elimination in Y helped us eliminated some possibilities, now recheck if we can find some certain number to fill in.\n");
+		}
+		else
+		{
+			printf("All failed, I'm really stucked\n");
+			return false;
+		}
+	}
+
+	return true;
 }
 
 int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], int* returnX, int* returnY, bool candidate[sudokuSize])	
@@ -355,7 +393,7 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 				bool tempCandidate[sudokuSize]={0};
 				for (int num=0; num<sudokuSize; num++)
 				{
-					if(canNumBeHere[num][x][y])
+					if(canNumBeHere[x][y][num])
 					{
 						candiCount++;// record one candidate
 						tempCandidate[num]=true;
@@ -371,7 +409,8 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 					*returnX=x;
 					*returnY=y;
 					memcpy(candidate, tempCandidate, sizeof(tempCandidate));
-					printf("Branching, 2 candidates\n");
+					printf("Can't decide number.\n");
+					//					printf("Branching, 2 candidates\n");
 					return 0;	// means sudoku is not yet finished.
 				}
 				if (candiCount<minCandidateCount)
@@ -395,7 +434,8 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 		*returnX=bestX;
 		*returnY=bestY;
 		memcpy(candidate, bestCandidate, sizeof(bestCandidate));
-		printf("Branching, %d candidates\n", minCandidateCount);
+		printf("Can't decide number.\n");
+		//		printf("Branching, %d candidates\n", minCandidateCount);
 		return 0;
 	}
 
@@ -406,17 +446,36 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize])
 {
-
-
-	fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
 	int guessX, guessY;
 	bool candidate[sudokuSize];
-	int boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
-	getchar();
-	if (boardStatus==1)
+	int boardStatus;
+	while (true)
 	{
-		return true;	// FOUND ANSWER!!
+		fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
+		boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
+		getchar();
+		if (boardStatus==1)
+		{
+			return true;	// FOUND ANSWER!!
+		}
+		if (boardStatus==-1)	// something is wrong in upper layer
+		{
+			printf("Got myself in a dead end. Poping out\n");
+			getchar();
+			return false;
+		}
+
+		printf("Trying twinElimination.\n");
+		bool twinsHelped = twinElimination(canNumBeHere);
+		getchar();
+		if (!twinsHelped)	// if twins Helped, 重新繼續填數字看看, if not, 真的得猜了
+		{
+			printf("didn't work. branching.\n");
+			break;
+		}
 	}
+
+
 	if (boardStatus==0)	// need to guess a number
 	{
 
@@ -436,7 +495,8 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		for (int candidateNum=0; candidateNum<sudokuSize; candidateNum++)	// try every candidate, if one doesn't work, undo it and try another
 		{
 			if (candidate[candidateNum])
-			{				
+			{	
+				printf("Guessing: ");
 				putNumberHere( board, candidateNum, guessX, guessY);
 				updateAvalibilityData(canNumBeHere, candidateNum, guessX, guessY);
 				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, candidateNum, guessX, guessY);
@@ -461,12 +521,6 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		getchar();
 		return false;
 	}
-	if (boardStatus==-1)	// something is wrong in upper layer
-	{
-		printf("Got myself in a dead end. Poping out\n");
-		getchar();
-		return false;
-	}
 
 	printf("boardStatus should be one of -1, 0, or 1. if program reached here, something's wrong.");
 	getchar();
@@ -484,11 +538,163 @@ void initCanNumBeHere(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		{
 			for (int y=0; y<sudokuSize; y++)
 			{
-				canNumBeHere[num][x][y]=checkIfCanWriteThisHere(board, x, y, num);
+				canNumBeHere[x][y][num]=checkIfCanWriteThisHere(board, x, y, num);
 			}
 		}
 
 	}
+
+}
+
+int numOfCandi(bool canNumBeHereXY[sudokuSize])	// canNumBeHere[x][y][num]	把最後一維傳進來
+{
+	int count=0;	
+	for (int num=0; num<sudokuSize; num++)
+	{
+		if (canNumBeHereXY[num])
+			count++;
+	}
+
+	return count;
+}
+
+bool candiIsSame(bool canNumBeHereX1Y1[sudokuSize], bool canNumBeHereX2Y2[sudokuSize])
+{
+	for (int num=0; num<sudokuSize; num++)
+	{
+		if (canNumBeHereX1Y1[num]!=canNumBeHereX2Y2[num])
+			return false;
+	}
+
+	return true;
+}
+
+
+
+bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
+{			
+	bool changed=false;
+	for (int x=0; x<sudokuSize; x++)
+	{
+		bool candiNumIsTwo[sudokuSize];
+		for (int y=0; y<sudokuSize; y++)	// 把候選有兩個的先找好
+		{
+			candiNumIsTwo[y]=(numOfCandi(canNumBeHere[x][y])==2);	
+		}
+
+		for (int y1=0; y1<sudokuSize; y1++)
+		{
+			if (candiNumIsTwo[y1])	// 候選有兩個才有可能有twins
+			{
+				for (int y2=y1+1; y2<sudokuSize; y2++)
+				{
+					if (candiNumIsTwo[y2])	//找到另一個候選數=2的
+					{
+						if (candiIsSame(canNumBeHere[x][y1], canNumBeHere[x][y2]))	// 至此找到了twins!!
+						{
+							printf("found twins in X direction : (%d, %d), (%d, %d) num: ", x, y1, x, y2);
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x][y1][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									printf("%d ", twinNum+1);
+								}
+							}
+							printf("\n");
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x][y1][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									printf("twin: num %d ", twinNum+1);
+									for (int clearingY=0; clearingY<sudokuSize; clearingY++)	// 開始在X dir上一個個處理
+									{
+										if (clearingY==y1||clearingY==y2)	// twins本身不動
+											continue;
+										if (canNumBeHere[x][clearingY][twinNum])//	twins中的數字若出現在其他的地方, 刪掉它們 // 如果不是要知道我有沒有changed, 不需要此判斷式, 通通設false就是了
+										{
+											canNumBeHere[x][clearingY][twinNum]=false;
+											changed=true;
+											printf("\n(%d, %d), kick out %d", x, clearingY, twinNum);
+										}
+
+									}
+									printf("\n");
+								}
+							}
+							printf("\n");
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
+	return changed;
+
+}
+bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
+{			
+	bool changed=false;
+	for (int y=0; y<sudokuSize; y++)
+	{
+		bool candiNumIsTwo[sudokuSize];
+		for (int x=0; x<sudokuSize; x++)	// 把候選有兩個的先找好
+		{
+			candiNumIsTwo[x]=(numOfCandi(canNumBeHere[x][y])==2);	
+		}
+
+		for (int x1=0; x1<sudokuSize; x1++)
+		{
+			if (candiNumIsTwo[x1])	// 候選有兩個才有可能有twins
+			{
+				for (int x2=x1+1; x2<sudokuSize; x2++)
+				{
+					if (candiNumIsTwo[x2])	//找到另一個候選數=2的
+					{
+						if (candiIsSame(canNumBeHere[x1][y], canNumBeHere[x2][y]))	// 至此找到了twins!!
+						{
+							printf("found twins in Y direction : (%d, %d), (%d, %d), num: ", x1, y, x2, y);
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x1][y][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									printf("%d ", twinNum+1);
+								}
+							}
+							printf("\n");
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x1][y][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									printf("twin: num %d ", twinNum+1);
+									for (int clearingX=0; clearingX<sudokuSize; clearingX++)	// 開始在X dir上一個個處理
+									{
+										if (clearingX==x1||clearingX==x2)	// twins本身不動
+											continue;
+										if (canNumBeHere[clearingX][y][twinNum])//	twins中的數字若出現在其他的地方, 刪掉它們 // 如果不是要知道我有沒有changed, 不需要此判斷式, 通通設false就是了
+										{
+											canNumBeHere[clearingX][y][twinNum]=false;
+											changed=true;
+											printf("\n(%d, %d), kick out %d", clearingX, y, twinNum);
+										}
+
+									}
+									printf("\n");
+								}
+							}
+							printf("\n");
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
+	return changed;
 
 }
 
@@ -551,7 +757,7 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 
 int logicalSolver(int board[][sudokuSize])
 {
-	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
+	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[x][y][num]
 	initCanNumBeHere(board, canNumBeHere);
 
 	bool waitingNumInThisX[sudokuSize][sudokuSize];	// [pos][num], true means this position still doesn't have that number
@@ -561,7 +767,6 @@ int logicalSolver(int board[][sudokuSize])
 	initWaitingNum( board,  waitingNumInThisX,  waitingNumInThisY,  waitingNumInThisBlock);
 
 	printf("Finished initializing data\n");
-	getchar();
 
 	bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
 	if (guessSuccess)
@@ -575,28 +780,6 @@ int logicalSolver(int board[][sudokuSize])
 		printUIBoard(board);
 	}
 
-	/*
-	fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
-	int guessX, guessY;
-	bool candidate[sudokuSize];
-	int boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
-
-	if (boardStatus==0)
-	{
-	printf("x: %d, y: %d, candidate: ", guessX, guessY);	
-	for (int num=0; num<sudokuSize; num++)
-	{
-	if (candidate[num])
-	{
-	printf(" %d", num+1);
-	}
-	}
-	printf("\n");
-	}
-	if (boardStatus==-1)
-	printf("fuck...");
-
-	*/
 
 	return 0;
 }
