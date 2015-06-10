@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "globalVar.h"
+
 using namespace std;
 
 class boardCell {
@@ -29,12 +30,19 @@ public:
     }
 };
 
-void generateByFileInputBoard(int board[][sudokuSize], const char *fileName);
+/* generate board by input file */
+bool generateByFileInputBoard(int board[][sudokuSize], const char *fileName);
+/********************************/
+
+/* board operation */
 vector<int> maybeNumbers(int board[][sudokuSize], int x, int y);
 int countSpace(const int board[][sudokuSize]);
 void copyBoard(const int board[][sudokuSize], int nBoard[][sudokuSize]);
+/*******************/
 
 /* solve sudoku */
+bool isSudokuUniqueSolution(const int board[][sudokuSize]);
+bool isSudokuNoSolution(const int board[][sudokuSize]);
 int sudoku_answer_count(const int board[][sudokuSize], const int threshold = InfiniteSolution);
 bool boardCheck(const int board[][sudokuSize], int x, int y, int num);
 /****************/

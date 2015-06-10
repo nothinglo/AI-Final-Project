@@ -1,12 +1,12 @@
 #include "sudoku-operateBoard.h"
-#include "sudoku-another-way.h"
+#include "sudoku-genRandomWalkBoard.h"
 
 
 #include "consoleUI.h"
-void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
-	srand((unsigned int)time(NULL));
+void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount) {
 
-	int answered_board[9][9] = {
+    const int disturbCount = 100;
+	int answered_board[sudokuSize][sudokuSize] = {
 		{ 5, 3, 4, 6, 7, 8, 9, 1, 2 },
 		{ 6, 7, 2, 1, 9, 5, 3, 4, 8 },
 		{ 1, 9, 8, 3, 4, 2, 5, 6, 7 },
@@ -19,7 +19,7 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 	};
 
 	// disturb the board
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < disturbCount; i++) {
 		randomChange2Units(answered_board);
 	}
 
@@ -36,7 +36,7 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
         
         if (temp != 0) {
             board[x][y] = 0;
-            if (sudoku_answer_count(board, 2) == 1) {
+            if (isSudokuUniqueSolution(board)) {
                 --blank_count;
             }
             else {

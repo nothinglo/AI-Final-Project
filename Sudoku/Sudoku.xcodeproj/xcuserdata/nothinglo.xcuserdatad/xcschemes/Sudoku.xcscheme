@@ -66,6 +66,10 @@
             argument = "input.txt -f"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "input2.txt -f"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

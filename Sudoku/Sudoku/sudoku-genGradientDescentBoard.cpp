@@ -1,15 +1,12 @@
 //
-//  sudoku-genBoard.cpp
+//  sudoku-genGradientDescentBoard.cpp
 //  AI-Final-Project
 //
 //  Created by uglyman.nothinglo on 2015/5/23.
 //  Copyright (c) 2015年 nothinglo. All rights reserved.
 //
 
-#include <random>
-#include <limits.h>
 #include <algorithm>
-#include <time.h>
 #include "sudoku-operateBoard.h"
 
 #include "consoleUI.h"
@@ -42,31 +39,41 @@ void getBoardCells(int board[][sudokuSize], vector<boardCell> & boardCells, int 
         }
     }
 }
+const boardCell descentBoardCell(int board[][sudokuSize], int & Threshold) {
+    vector<boardCell> boardCells;
+    boardCell bc(0);
+    getBoardCells(board, boardCells, Threshold, Threshold);
+    if(boardCells.size() == 0) {
+        return bc;
+    }
+    sort(boardCells.begin(), boardCells.end());
+    return boardCells[0];
+}
+const boardCell descentBoardCell(int board[][sudokuSize]) {
+    int Threshold = 7000;
+    return descentBoardCell(board, Threshold);
+}
 bool gradientDescentToBoard(int board[][sudokuSize]) {
     //printUIBoard(board);
     //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
     int Threshold = sudoku_answer_count(board);
-    while(sudoku_answer_count(board, 2) > 1) {
+    while(isSudokuUniqueSolution(board) == false) {
         vector<boardCell> boardCells;
-        int nowS = Threshold;
-        getBoardCells(board, boardCells, Threshold, nowS);
-        if(boardCells.size() == 0) {
+        const boardCell & c = descentBoardCell(board, Threshold);
+        if(c.null) {
             return false;
         }
-        sort(boardCells.begin(), boardCells.end());
-        const boardCell & c = boardCells[0];
         board[c.x][c.y] = c.num;
         //printUIBoard(board);
         //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
     }
     return true;
 }
-void generateRandomSpaceBoard(int board[][sudokuSize], const int spaceCount) {
-    srand((unsigned int)time(NULL));
+void generateGradientDescentBoard(int board[][sudokuSize], const int spaceCount) {
     bool isDone;
     do {
         cout << "generateSpaceBoard() ing" << endl;
-        while(generateSpaceBoard_NonUniqueSolution_ByData(board, spaceCount) == false || sudoku_answer_count(board, 1) == 0);
+        while(generateSpaceBoard_NonUniqueSolution_ByData(board, spaceCount) == false || isSudokuNoSolution(board));
         cout << "gradientDescentToBoard() ing" << endl;
         isDone = gradientDescentToBoard(board);
     } while( isDone == false );

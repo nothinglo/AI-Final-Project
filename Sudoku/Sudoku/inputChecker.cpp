@@ -15,8 +15,13 @@ bool checkParameter(int argc, const char * argv[]) {
     if(argc != 2 && argc != 3) {
         fprintf(stderr, "./exe [level: easy %d, difficult %d] ([-a])\n", minLevel, maxLevel);
         return false;
-    }
-    if(argc == 3 && strcmp(argv[2], "-f") == 0) {
+    } else if(argc == 3 && strcmp(argv[2], "-f") == 0) {
+        FILE * file = fopen(argv[1], "r");
+        if(file == NULL) {
+            fprintf(stderr, "input file can not read.\n");
+            return false;
+        }
+        fprintf(stdout, "Read Sudoku board by file [%s].\n", argv[1]);
         return true;
     }
     int level = atoi(argv[1]);

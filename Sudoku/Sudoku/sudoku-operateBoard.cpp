@@ -10,9 +10,6 @@
 #include <fstream>
 
 #include <algorithm>// std::random_shuffle
-#include <string>	// getline
-#include <time.h>	// time
-
 
 #include "consoleUI.h"
 
@@ -23,28 +20,31 @@ void copyBoard(const int board[][sudokuSize], int nBoard[][sudokuSize]) {
         }
     }
 }
-void generateByFileInputBoard(int board[][sudokuSize], const char *fileName) {
-    string tmp;
+bool generateByFileInputBoard(int board[][sudokuSize], const char *fileName) {
+    string str;
     fstream file(fileName);
-    char tmpC;
-    for(int i = 0; i < sudokuSize; ++i) {
-        if(i % 3 == 0) {
-            getline(file, tmp);
-        }
-        for(int j = 0; j < sudokuSize; ++j) {
-            if(j == sudokuSize - 1) {
-                file >> board[i][j] >> tmpC;
-            } else if(j % 3 == 0) {
-                file >> tmpC >> board[i][j];
-            } else {
-                file >> board[i][j];
+    int index = 0;
+    char c = '\0';
+    while(file.get(c)) {
+        if(isdigit(c)) {
+            str += c;
+        } else if(str.length() > 0) {
+            int i = index / sudokuSize;
+            int j = index % sudokuSize;
+            board[i][j] = stoi(str);
+            if(++index == sudokuLength) {
+                return true;
             }
-        }
-        if(i % 3 == 2) {
-            file >> tmpC;
+            str.clear();
         }
     }
-    getline(file, tmp);
+    if(str.length() > 0 && index == sudokuLength - 1) {
+        int i = index / sudokuSize;
+        int j = index % sudokuSize;
+        board[i][j] = stoi(str);
+        return true;
+    }
+    return false;
 }
 void findPlace(int board[][sudokuSize], int* sum, const int threshold, int x, int y){
     if(x == sudokuSize) {
@@ -68,6 +68,12 @@ void findPlace(int board[][sudokuSize], int* sum, const int threshold, int x, in
             }
         }
     }
+}
+bool isSudokuUniqueSolution(const int board[][sudokuSize]) {
+    return sudoku_answer_count(board, 2) == 1;
+}
+bool isSudokuNoSolution(const int board[][sudokuSize]) {
+    return sudoku_answer_count(board, 1) == 0;
 }
 int sudoku_answer_count(const int board[][sudokuSize], const int threshold) {
     int sum = 0, tmpBoard[sudokuSize][sudokuSize];
@@ -132,7 +138,6 @@ int countSpace(const int board[][sudokuSize]) {
     return count;
 }
 bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const int spaceCount) {
-    srand((unsigned int)time(NULL));
     
     int answered_board[9][9] = {
         { 5, 3, 4, 6, 7, 8, 9, 1, 2 },
@@ -161,7 +166,7 @@ bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const 
             
             if (temp != 0) {
                 board[x][y] = 0;
-                if (sudoku_answer_count(board, 2) == 1) {
+                if (isSudokuUniqueSolution(board)) {
                     --space;
                 }
                 else {
