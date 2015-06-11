@@ -17,6 +17,8 @@ const int sudokuSize = sudoku_Sub_Size * sudoku_Sub_Size; // 9
 const int sudokuLength = sudokuSize * sudokuSize; // 81
 const int block_size = sqrt(sudokuSize);
 
+const int DisturbCount = 100;
+
 const int minLevel = 1;
 const int maxLevel = 15;
 

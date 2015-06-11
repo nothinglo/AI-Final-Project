@@ -60,6 +60,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "11"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "11 -a"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

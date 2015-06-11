@@ -60,4 +60,7 @@ bool generateSpaceBoard_NonUniqueSolution(int board[][sudokuSize], const int spa
 bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const int spaceCount);
 /*********************************************/
 
+/* generate random full filled sudoku board */
+void generateRandomFullFilledBoard(int board[][sudokuSize], const int disturbCount = DisturbCount);
+/*********************************************/
 #endif /* defined(__Sudoku__sudoku_operateBoard__) */
