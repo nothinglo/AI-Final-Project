@@ -9,16 +9,51 @@
 #include "inputChecker.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstring>
+#include <iostream>
 
-bool checkParameter(int argc, const char * argv[]) {
-    if(argc != 2 && argc != 3) {
-        fprintf(stderr, "./exe [level: easy %d, difficult %d] ([-a])\n", minLevel, maxLevel);
-        return false;
-    }
-    int level = atoi(argv[1]);
-    if( (level >= minLevel && level <= maxLevel) == false ) {
-        fprintf(stderr, "level range is : easy %d ~ difficult %d\n", minLevel, maxLevel);
-        return false;
-    }
+using namespace std;
+
+Param::Param()
+{
+	method   = GAUSSIAN_DESCENT;
+	mode	 = NORMAL;
+	out_mode = OUT_NORMAL;
+}
+
+bool Param::checkParameter(int argc, const char * argv[]) {
+
+	for (int i = 1; i < argc; i++)
+	{
+		char * pEnd;
+		int l = strtol(argv[i], &pEnd, 10);
+
+		if (l > 0)
+		{
+			if (l >= minLevel && l <= maxLevel)
+			{
+				level = l;
+			}
+			else
+			{
+				cout << "level you query : " << level << endl;
+				cout << "level range is : easy " << minLevel << "~ difficult " << maxLevel << endl;
+				return false;
+			}
+		}
+		else if (strcmp(argv[i], "-a") == 0)
+		{
+			method = RANDOMWALK;
+		}
+		else if (strcmp(argv[i], "-dig") == 0)
+		{
+			mode = DIGGING;
+		}
+		else if (strcmp(argv[i], "-php") == 0)
+		{
+			out_mode = PHP;
+		}
+	}
+
     return true;
 }

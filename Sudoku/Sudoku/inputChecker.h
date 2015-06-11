@@ -11,6 +11,23 @@
 
 #include "globalVar.h"
 
+using namespace std;
+
+enum GENERATON_METHOD { GAUSSIAN_DESCENT, RANDOMWALK };
+enum GENERATON_MODE { NORMAL, DIGGING };
+enum CONSOLE_OUTPUT_MODE { OUT_NORMAL, PHP };
+
+class Param {
+
+public:
+	Param();
+	bool checkParameter(int argc, const char * argv[]);
+
+	int level;
+	GENERATON_METHOD method;
+	GENERATON_MODE mode;
+	CONSOLE_OUTPUT_MODE out_mode;
+};
 bool checkParameter(int argc, const char * argv[]);
 
 #endif /* defined(__Sudoku__inputChecker__) */

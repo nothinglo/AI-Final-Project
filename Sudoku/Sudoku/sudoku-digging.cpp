@@ -10,6 +10,7 @@
 #include <limits.h>
 #include <algorithm>
 #include <time.h>
+#include <cstring>
 #include "sudoku-digging.h"
 #include "sudoku-answer-count.h"
 #include "consoleUI.h"

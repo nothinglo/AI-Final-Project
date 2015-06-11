@@ -161,9 +161,9 @@ void generateRandomSpaceBoard(int board[][sudokuSize], const int spaceCount) {
     srand((unsigned int)time(NULL));
     bool isDone;
     do {
-        cout << "generateSpaceBoard() ing" << endl;
+        //cout << "generateSpaceBoard() ing" << endl;
         while(generateSpaceBoard(board, spaceCount) == false || sudoku_answer_count(board) == 0);
-        cout << "gradientDescentToBoard() ing" << endl;
+        //cout << "gradientDescentToBoard() ing" << endl;
         isDone = gradientDescentToBoard(board);
     } while( isDone == false );
 }

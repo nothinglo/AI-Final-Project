@@ -38,3 +38,11 @@ void printUIBoard(int board[][sudokuSize]) {
     }
     cout << " - - - - - - - - -" << endl;
 }
+
+void printUIBoardforPHP(int board[][sudokuSize]) {
+    for(int i = 0; i < sudokuSize; ++i) {
+        for(int j = 0; j < sudokuSize; ++j) {
+                cout << board[i][j] << ";";
+        }
+    }
+}

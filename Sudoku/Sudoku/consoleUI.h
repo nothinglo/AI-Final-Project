@@ -13,5 +13,6 @@
 
 void printSimpleBoard(int board[][sudokuSize]);
 void printUIBoard(int board[][sudokuSize]);
+void printUIBoardforPHP(int board[][sudokuSize]);
 
 #endif /* defined(__Sudoku__consoleUI__) */
