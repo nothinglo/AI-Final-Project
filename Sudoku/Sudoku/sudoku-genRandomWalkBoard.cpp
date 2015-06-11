@@ -76,3 +76,46 @@ void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount) {
 		}
 	}
 }
+
+vector<pair<int, int> >
+generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCount, const int Threshold) {
+    generateRandomFullFilledBoard(board);
+    int space, initSpace = min(Threshold, spaceCount);
+    
+    vector<pair<int, int> > hasNumber, fullPos;
+    for(int i = 0; i < sudokuSize; ++i) {
+        for(int j = 0; j < sudokuSize; ++j) {
+            fullPos.push_back(make_pair(i, j));
+        }
+    }
+    hasNumber = fullPos;
+    space = initSpace;
+    int time = 0;
+    while(space > 0) {
+        vector<tuple<int, int, int> > candidates;
+        for(int i = 0; i < hasNumber.size(); ++i) {
+            const int & x = hasNumber[i].first, y = hasNumber[i].second;
+            int tmp = board[x][y];
+            board[x][y] = 0;
+            if(isSudokuUniqueSolution(board)) {
+                candidates.push_back(make_tuple(x, y, i));
+            }
+            board[x][y] = tmp;
+        }
+        if(candidates.size() == 0) {
+            printf("Generate %d space board fail time = %d\n", initSpace, ++time);
+            space = initSpace;
+            generateRandomFullFilledBoard(board);
+            hasNumber = fullPos;
+        } else {
+            int randNum = rand() % candidates.size();
+            vector<tuple<int, int, int> >::iterator it = candidates.begin() + randNum;
+            const int & x = std::get<0>(*it), y = std::get<1>(*it), i = std::get<2>(*it);
+            board[x][y] = 0;
+            candidates.erase(it);
+            hasNumber.erase(hasNumber.begin() + i);
+            --space;
+        }
+    }
+    return hasNumber;
+}

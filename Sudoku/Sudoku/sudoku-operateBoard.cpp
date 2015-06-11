@@ -138,42 +138,7 @@ int countSpace(const int board[][sudokuSize]) {
     }
     return count;
 }
-bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const int spaceCount) {
-    
-    generateRandomFullFilledBoard(board);
-    
-    const int threshold = 55, step = spaceCount - threshold;
-    int space = spaceCount;
-    if(spaceCount > threshold) {
-        while (space > step) {
-            int x, y;
-            x = rand() % sudokuSize;
-            y = rand() % sudokuSize;
-            int temp = board[x][y];
-            
-            if (temp != 0) {
-                board[x][y] = 0;
-                if (isSudokuUniqueSolution(board)) {
-                    --space;
-                }
-                else {
-                    board[x][y] = temp;
-                }
-            }
-        }
-    }
-    for(int i = 0; i < space; ++i) {
-        int index = rand() % sudokuLength;
-        int x = index / sudokuSize;
-        int y = index % sudokuSize;
-        if(board[x][y] == 0) {
-            --i;
-        } else {
-            board[x][y] = 0;
-        }
-    }
-    return true;
-}
+
 bool generateSpaceBoard_NonUniqueSolution(int board[][sudokuSize], const int spaceCount) {
     for(int i = 0; i < sudokuSize; ++i) {
         for(int j = 0; j < sudokuSize; ++j) {
