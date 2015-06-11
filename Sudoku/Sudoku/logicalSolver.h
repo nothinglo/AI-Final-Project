@@ -3,21 +3,23 @@
 #include "consoleUI.h"
 
 int logicalSolver(int board[][sudokuSize]);
-bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY);
 
-void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], int num, int posX, int posY);
+bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY);
 
 int posToBlockNum(int x, int y);
 void blockNumToBasePos(int blockNum, int *x, int *y);
+void cellNumToOffset(int cellNum, int *x, int *y);
 
-void updateWatingNumData(bool waitingNumInThisX[sudokuSize][sudokuSize], bool waitingNumInThisY[sudokuSize][sudokuSize], 
-						 bool waitingNumInThisBlock[sudokuSize][sudokuSize], int num, int posX, int posY);
 void initWaitingNum(int board[][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
-
 void initCanNumBeHere(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 
+void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], int num, int posX, int posY);
+void updateWatingNumData(bool waitingNumInThisX[sudokuSize][sudokuSize], bool waitingNumInThisY[sudokuSize][sudokuSize], 
+						 bool waitingNumInThisBlock[sudokuSize][sudokuSize], int num, int posX, int posY);
+
 void putNumberHere(int board[][sudokuSize], int num, int x, int y);
+
 bool findNumXDir(bool waitingNumInThisX[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
 				 int *returnNum, int *returnX, int *returnY);
 bool findNumYDir(bool waitingNumInThisY[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
@@ -36,9 +38,8 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
 
+bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 
 bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
-
-bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);

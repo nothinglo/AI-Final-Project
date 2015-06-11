@@ -624,7 +624,7 @@ bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 								if (canNumBeHere[x][y1][twinNum])	//	twins的兩個數字會過這判斷式
 								{
 									//printf("twin: num %d ", twinNum+1);
-									for (int clearingY=0; clearingY<sudokuSize; clearingY++)	// 開始在X dir上一個個處理
+									for (int clearingY=0; clearingY<sudokuSize; clearingY++)	
 									{
 										if (clearingY==y1||clearingY==y2)	// twins本身不動
 											continue;
@@ -636,7 +636,6 @@ bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 										}
 
 									}
-//									printf("\n");
 								}
 							}
 							printf("\n");
@@ -686,8 +685,7 @@ bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 							{
 								if (canNumBeHere[x1][y][twinNum])	//	twins的兩個數字會過這判斷式
 								{
-									//printf("twin: num %d ", twinNum+1);
-									for (int clearingX=0; clearingX<sudokuSize; clearingX++)	// 開始在X dir上一個個處理
+									for (int clearingX=0; clearingX<sudokuSize; clearingX++)	
 									{
 										if (clearingX==x1||clearingX==x2)	// twins本身不動
 											continue;
@@ -699,7 +697,6 @@ bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 										}
 
 									}
-//									printf("\n");
 								}
 							}
 							printf("\n");
@@ -765,8 +762,7 @@ bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSiz
 							{
 								if (canNumBeHere[x1][y1][twinNum])	//	twins的兩個數字會過這判斷式
 								{
-									//printf("twin: num %d ", twinNum+1);
-									for (int clearingCell=0; clearingCell<sudokuSize; clearingCell++)	// 開始在X dir上一個個處理
+									for (int clearingCell=0; clearingCell<sudokuSize; clearingCell++)	
 									{
 										int clearingX, clearingY;
 										cellNumToOffset(clearingCell, &clearingX, &clearingY);
@@ -783,7 +779,6 @@ bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSiz
 										}
 
 									}
-//									printf("\n");
 								}
 							}
 							printf("\n");
