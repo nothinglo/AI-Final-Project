@@ -1,8 +1,60 @@
 #include "sudoku-operateBoard.h"
 #include "sudoku-genRandomWalkBoard.h"
-
-
 #include "consoleUI.h"
+
+bool randomWalk(int board[sudokuSize][sudokuSize], vector<int> candidates, int blankNum)
+{
+	if (blankNum == 0) return true;
+
+	// copy a new board
+	int clone_board[sudokuSize][sudokuSize];
+	copyBoard(board, clone_board);
+
+	// go through all candidates
+	while (!candidates.empty())
+	{
+		// random select a cell to eliminate
+		int randNum = rand() % candidates.size();
+		vector<int>::iterator it = candidates.begin() + randNum;
+		int OneDimIndex = *it;
+		int x = OneDimIndex / sudokuSize;
+		int y = OneDimIndex % sudokuSize;
+
+		int temp = clone_board[x][y];
+
+		clone_board[x][y] = 0;
+
+		vector<int> explored;
+
+		// if removing selected cell can still get only one solution
+		if (sudoku_answer_count(clone_board) == 1)
+		{
+			vector<int> nextLevelCandidates = candidates;
+			nextLevelCandidates.erase(nextLevelCandidates.begin() + randNum);
+			nextLevelCandidates.insert(nextLevelCandidates.end(), explored.begin(), explored.end());
+
+			if (randomWalk(clone_board, nextLevelCandidates, blankNum - 1))
+			{
+				copyBoard(clone_board, board);
+				return true;
+			}
+			else
+			{
+				explored.push_back(*it);
+				candidates.erase(it);	
+				clone_board[x][y] = temp;
+			}
+		}
+		else
+		{		
+			explored.push_back(*it);
+			candidates.erase(it);
+			clone_board[x][y] = temp;
+		}
+	}
+	return false;
+}
+
 void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount) {
 
     const int disturbCount = 100;
@@ -26,22 +78,21 @@ void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount) {
 	// copy data from answered_board to board
     copyBoard(answered_board, board);
 
-	int blank_count = spaceCount;
+	// prepare one dimension index
+	vector<int> candidates;
+	for (int i = 0; i < sudokuSize*sudokuSize - 1; i++)
+	{
+		candidates.push_back(i);
+	}
 
-    while (blank_count > 0) {
-        int x, y;
-        x = rand() % sudokuSize;
-        y = rand() % sudokuSize;
-        int temp = board[x][y];
-        
-        if (temp != 0) {
-            board[x][y] = 0;
-            if (isSudokuUniqueSolution(board)) {
-                --blank_count;
-            }
-            else {
-                board[x][y] = temp;
-            }
-        }
-    }
+	if (!randomWalk(board, candidates, spaceCount))
+	{
+		for (int i = 0; i < sudokuSize; i++)
+		{
+			for (int j = 0; j < sudokuSize; j++)
+			{
+				board[i][j] = 0;
+			}
+		}
+	}
 }

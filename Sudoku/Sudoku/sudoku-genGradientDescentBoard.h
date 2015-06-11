@@ -10,6 +10,7 @@
 #define __Sudoku__sudoku_genGradientDescentBoard__
 
 #include "globalVar.h"
+#include "sudoku-operateBoard.h"
 
 const boardCell descentBoardCell(int board[][sudokuSize]);
 const boardCell descentBoardCell(int board[][sudokuSize], int & Threshold);
