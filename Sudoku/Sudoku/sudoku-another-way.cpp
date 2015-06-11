@@ -1,5 +1,4 @@
-#include "sudoku-board.h"
-#include "sudoku-answer-count.h"
+#include "sudoku-operateBoard.h"
 #include "sudoku-another-way.h"
 
 int block_size;
