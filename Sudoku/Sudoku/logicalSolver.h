@@ -39,5 +39,6 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 
 bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 
 bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);

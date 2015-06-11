@@ -46,6 +46,12 @@ void blockNumToBasePos(int blockNum, int *x, int *y)
 	*x=(blockNum/3)*3;
 	return;
 }
+void cellNumToOffset(int cellNum, int *x, int *y)
+{
+	*y=(cellNum%3);
+	*x=(cellNum/3);
+	return;
+}
 
 void updateWatingNumData(bool waitingNumInThisX[sudokuSize][sudokuSize], bool waitingNumInThisY[sudokuSize][sudokuSize], 
 						 bool waitingNumInThisBlock[sudokuSize][sudokuSize], int num, int posX, int posY)
@@ -356,7 +362,7 @@ bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 	}
 	else
 	{
-	printf("Trying twinsEliminationInY\n");
+		printf("Trying twinsEliminationInY\n");
 
 		bool twinY=twinsEliminationInY(canNumBeHere);
 		if (twinY)
@@ -366,8 +372,17 @@ bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 		}
 		else
 		{
-			printf("All failed, I'm really stucked\n");
-			return false;
+			printf("Trying twinsEliminationInBlock\n");
+			bool twinCell=twinsEliminationInBlock(canNumBeHere);
+			if (twinCell)
+			{
+				printf("Twin Elimination in Block helped us eliminated some possibilities, now recheck if we can find some certain number to fill in.\n");
+			}
+			else
+			{
+				printf("All failed, I'm really stucked\n");
+				return false;
+			}
 		}
 	}
 
@@ -470,7 +485,7 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		getchar();
 		if (!twinsHelped)	// if twins Helped, 重新繼續填數字看看, if not, 真的得猜了
 		{
-			printf("didn't work. branching.\n");
+			printf("Twin Elimination didn't help. We have to guess.\n");
 			break;
 		}
 	}
@@ -500,6 +515,9 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 				putNumberHere( board, candidateNum, guessX, guessY);
 				updateAvalibilityData(canNumBeHere, candidateNum, guessX, guessY);
 				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, candidateNum, guessX, guessY);
+
+				getchar();
+
 				bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
 				if (guessSuccess)
 				{
@@ -605,7 +623,7 @@ bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 							{
 								if (canNumBeHere[x][y1][twinNum])	//	twins的兩個數字會過這判斷式
 								{
-									printf("twin: num %d ", twinNum+1);
+									//printf("twin: num %d ", twinNum+1);
 									for (int clearingY=0; clearingY<sudokuSize; clearingY++)	// 開始在X dir上一個個處理
 									{
 										if (clearingY==y1||clearingY==y2)	// twins本身不動
@@ -614,11 +632,11 @@ bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 										{
 											canNumBeHere[x][clearingY][twinNum]=false;
 											changed=true;
-											printf("\n(%d, %d), kick out %d", x, clearingY, twinNum);
+											printf("(%d, %d), kick out %d\n", x, clearingY, twinNum+1);
 										}
 
 									}
-									printf("\n");
+//									printf("\n");
 								}
 							}
 							printf("\n");
@@ -668,7 +686,7 @@ bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 							{
 								if (canNumBeHere[x1][y][twinNum])	//	twins的兩個數字會過這判斷式
 								{
-									printf("twin: num %d ", twinNum+1);
+									//printf("twin: num %d ", twinNum+1);
 									for (int clearingX=0; clearingX<sudokuSize; clearingX++)	// 開始在X dir上一個個處理
 									{
 										if (clearingX==x1||clearingX==x2)	// twins本身不動
@@ -677,11 +695,95 @@ bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
 										{
 											canNumBeHere[clearingX][y][twinNum]=false;
 											changed=true;
-											printf("\n(%d, %d), kick out %d", clearingX, y, twinNum);
+											printf("(%d, %d), kick out %d\n", clearingX, y, twinNum+1);
 										}
 
 									}
-									printf("\n");
+//									printf("\n");
+								}
+							}
+							printf("\n");
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
+	return changed;
+
+}
+
+
+bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize])
+{			
+	bool changed=false;
+	for (int blockID=0; blockID<sudokuSize; blockID++)
+	{
+		int baseX, baseY;
+		blockNumToBasePos(blockID, &baseX, &baseY);
+
+		bool candiNumIsTwo[sudokuSize];
+		for (int cellID=0; cellID<sudokuSize; cellID++)	// 把候選有兩個的先找好
+		{
+			int offsetX, offsetY;
+			cellNumToOffset(cellID, &offsetX, &offsetY);
+			candiNumIsTwo[cellID]=(numOfCandi(canNumBeHere[baseX+offsetX][baseY+offsetY])==2);	
+		}
+
+		for (int cellID1=0; cellID1<sudokuSize; cellID1++)
+		{
+			if (candiNumIsTwo[cellID1])	// 候選有兩個才有可能有twins
+			{
+				int offsetX1, offsetY1;
+				cellNumToOffset(cellID1, &offsetX1, &offsetY1);
+				for (int cellID2=cellID1+1; cellID2<sudokuSize; cellID2++)
+				{
+					if (candiNumIsTwo[cellID2])	//找到另一個候選數=2的
+					{
+						int offsetX2, offsetY2;
+						cellNumToOffset(cellID2, &offsetX2, &offsetY2);
+						int x1=baseX+offsetX1;
+						int y1=baseY+offsetY1;
+						int x2=baseX+offsetX2;
+						int y2=baseY+offsetY2;
+
+						if (candiIsSame(canNumBeHere[x1][y1], canNumBeHere[x2][y2]))	// 至此找到了twins!!
+						{
+							printf("found twins in Block : (%d, %d), (%d, %d), num: ", x1, y1, x2, y2);
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x1][y1][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									printf("%d ", twinNum+1);
+								}
+							}
+							printf("\n");
+							for (int twinNum=0; twinNum<sudokuSize; twinNum++)
+							{
+								if (canNumBeHere[x1][y1][twinNum])	//	twins的兩個數字會過這判斷式
+								{
+									//printf("twin: num %d ", twinNum+1);
+									for (int clearingCell=0; clearingCell<sudokuSize; clearingCell++)	// 開始在X dir上一個個處理
+									{
+										int clearingX, clearingY;
+										cellNumToOffset(clearingCell, &clearingX, &clearingY);
+										clearingX=clearingX+baseX;
+										clearingY=clearingY+baseY;
+
+										if ((clearingX==x1&&clearingY==y1)||(clearingX==x2&&clearingY==y2))	// twins本身不動
+											continue;
+										if (canNumBeHere[clearingX][clearingY][twinNum])//	twins中的數字若出現在其他的地方, 刪掉它們 // 如果不是要知道我有沒有changed, 不需要此判斷式, 通通設false就是了
+										{
+											canNumBeHere[clearingX][clearingY][twinNum]=false;
+											changed=true;
+											printf("(%d, %d), kick out %d\n", clearingX, clearingY, twinNum+1);
+										}
+
+									}
+//									printf("\n");
 								}
 							}
 							printf("\n");
