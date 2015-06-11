@@ -10,6 +10,7 @@
 #include <fstream>
 
 #include <algorithm>// std::random_shuffle
+#include <string>// stoi
 
 #include "consoleUI.h"
 
