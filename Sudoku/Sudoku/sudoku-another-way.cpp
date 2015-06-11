@@ -39,6 +39,71 @@ void randomChange2BlockRows(int board[sudokuSize][sudokuSize], int row1, int row
 	}
 }
 
+bool randomWalk(int board[sudokuSize][sudokuSize], vector<int> candidates, int blankNum)
+{
+	if (blankNum == 0) return true;
+
+	// copy a new board
+	int clone_board[sudokuSize][sudokuSize];
+	for (int i = 0; i < sudokuSize; i++)
+	{
+		for (int j = 0; j < sudokuSize; j++)
+		{
+			clone_board[i][j] = board[i][j];
+		}
+	}
+
+	// go through all candidates
+	while (!candidates.empty())
+	{
+		// random select a cell to eliminate
+		int randNum = rand() % candidates.size();
+		vector<int>::iterator it = candidates.begin() + randNum;
+		int OneDimIndex = *it;
+		int x = OneDimIndex / sudokuSize;
+		int y = OneDimIndex % sudokuSize;
+
+		int temp = clone_board[x][y];
+
+		clone_board[x][y] = 0;
+		
+		vector<int> explored;
+
+		// if removing selected cell can still get only one solution
+		if (sudoku_answer_count(clone_board) == 1)
+		{
+			vector<int> nextLevelCandidates = candidates;
+			nextLevelCandidates.erase(nextLevelCandidates.begin() + randNum);
+			nextLevelCandidates.insert(nextLevelCandidates.end(), explored.begin(), explored.end());
+
+			if (randomWalk(clone_board, nextLevelCandidates, blankNum-1))
+			{
+				for (int i = 0; i < sudokuSize; i++)
+				{
+					for (int j = 0; j < sudokuSize; j++)
+					{
+						board[i][j] = clone_board[i][j];
+					}
+				}
+				return true;
+			}	
+			else
+			{
+				candidates.erase(it);
+				explored.push_back(*it);
+				clone_board[x][y] = temp;
+			}
+		}
+		else
+		{
+			candidates.erase(it);
+			explored.push_back(*it);
+			clone_board[x][y] = temp;
+		}
+	}
+	return false;
+}
+
 void randomChange2Units(int board[sudokuSize][sudokuSize])
 {
 	int choice = rand() % 2;
@@ -81,6 +146,7 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 
 	block_size = sqrt(sudokuSize);
 
+	// prepare a answered Sudoku
 	int answered_board[9][9] = {
 		{ 5, 3, 4, 6, 7, 8, 9, 1, 2 },
 		{ 6, 7, 2, 1, 9, 5, 3, 4, 8 },
@@ -94,33 +160,35 @@ void genSudokuAnotherWay(int board[][sudokuSize], const int spaceCount) {
 	};
 
 	// disturb the board
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 100; i++) 
+	{
 		randomChange2Units(answered_board);
 	}
 
 	// copy data from answered_board to board
-	for (int i = 0; i < sudokuSize; i++) {
-		for (int j = 0; j < sudokuSize; j++) {
+	for (int i = 0; i < sudokuSize; i++) 
+	{
+		for (int j = 0; j < sudokuSize; j++) 
+		{
 			board[i][j] = answered_board[i][j];
 		}
 	}
 
-	int blank_count = spaceCount;
-    
-    while (blank_count > 0) {
-        int x, y;
-        x = rand() % sudokuSize;
-        y = rand() % sudokuSize;
-        int temp = board[x][y];
-        
-        if (temp != 0) {
-            board[x][y] = 0;
-            if (sudoku_answer_count(board) == 1) {
-                --blank_count;
-            }
-            else {
-                board[x][y] = temp;
-            }
-        }
-    }
+	// prepare one dimension index
+	vector<int> candidates;
+	for (int i = 0; i < sudokuSize*sudokuSize - 1; i++)
+	{
+		candidates.push_back(i);
+	}
+
+	if (!randomWalk(board, candidates, spaceCount))
+	{
+		for (int i = 0; i < sudokuSize; i++)
+		{
+			for (int j = 0; j < sudokuSize; j++)
+			{
+				board[i][j] = 0;
+			}
+		}
+	}
 }
