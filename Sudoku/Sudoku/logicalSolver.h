@@ -1,9 +1,9 @@
 
-#include "sudoku-board.h"
+#include "sudoku-operateBoard.h"
 #include "consoleUI.h"
-#include "sudoku-answer-count.h"
 
 int logicalSolver(int board[][sudokuSize]);
+bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY);
 
 void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], int num, int posX, int posY);
 
@@ -14,6 +14,8 @@ void updateWatingNumData(bool waitingNumInThisX[sudokuSize][sudokuSize], bool wa
 						 bool waitingNumInThisBlock[sudokuSize][sudokuSize], int num, int posX, int posY);
 void initWaitingNum(int board[][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
+
+void initCanNumBeHere(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 
 void putNumberHere(int board[][sudokuSize], int num, int x, int y);
 bool findNumXDir(bool waitingNumInThisX[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
@@ -33,3 +35,9 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
 					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
+
+
+bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+
+bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);

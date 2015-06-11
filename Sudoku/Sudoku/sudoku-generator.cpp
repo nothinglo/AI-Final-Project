@@ -7,48 +7,39 @@
 //
 
 #include <iostream>
-#include <cstring>
-#include <chrono>
 #include "globalVar.h"
 #include "consoleUI.h"
-#include "sudoku-board.h"
-#include "sudoku-digging.h"
-#include "sudoku-answer-count.h"
-#include "sudoku-another-way.h"
+#include "sudoku-operateBoard.h"
+#include "sudoku-genGradientDescentBoard.h"
+#include "sudoku-genRandomWalkBoard.h"
 #include "inputChecker.h"
+
+#include "logicalSolver.h"
 
 using namespace std;
 //arguments:
 //[level] [method]
 int main(int argc, const char * argv[]) {
-	Param param;
-    if(!param.checkParameter(argc, argv)) {
+    if(checkParameter(argc, argv) == false) {
         return -1;
     }
-    int level = param.level;
+    int level = atoi(argv[1]);
     int board[sudokuSize][sudokuSize];
     
-	if (param.method == GENERATON_METHOD::RANDOMWALK) {
-		auto start = std::chrono::system_clock::now();
-		genSudokuAnotherWay(board, level * levelSpaceStep);
-		auto end = std::chrono::system_clock::now();
-		auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-		std::cout << elapsed.count() << endl;
+    srand((unsigned int)time(NULL));
+    
+	if (argc == 3 && (strcmp(argv[2], "-a")==0)) {
+		generateRandomWalkBoard(board, level * levelSpaceStep);
+	} else if(argc == 3 && (strcmp(argv[2], "-f") == 0)) {
+        if(generateByFileInputBoard(board, argv[1]) == false) {
+            fprintf(stderr, "input file [%s] board format error.\n", argv[1]);
+            return - 1;
+        }
+    } else {
+		generateGradientDescentBoard(board, level * levelSpaceStep + 1);
 	}
-	else if (param.mode == GENERATON_MODE::DIGGING) {
-		generateDiggingBoard(board);
-	}
-	else {
-		generateRandomSpaceBoard(board, level * levelSpaceStep);
-	}
-
-	if (param.out_mode == CONSOLE_OUTPUT_MODE::PHP)
-		printUIBoardforPHP(board);
-	else
-	{
-		printUIBoard(board);
-		printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
-	}
-		
+    printUIBoard(board);
+    printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
+    
     return 0;
 }
