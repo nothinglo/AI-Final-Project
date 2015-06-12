@@ -28,5 +28,5 @@ const int InfiniteSolution = std::numeric_limits<int>::max();
 
 const int UpperBoundOfFindSolution = 7000;
 
-const int MaxSpaceCount = 60;
+const int MaxSpaceCount = 61;
 #endif

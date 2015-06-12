@@ -12,6 +12,18 @@
 
 #include "consoleUI.h"
 
+const boardCell getOneSolutionBoardCell(int board[][sudokuSize], int i, int j) {
+    const vector<int> & numbers = maybeNumbers(board, i, j);
+    boardCell c(0);
+    for(int k = 0; k < numbers.size(); ++k) {
+        board[i][j] = numbers[k];
+        if(isSudokuUniqueSolution(board)) {
+            return boardCell(i, j, numbers[k], 1);
+        }
+    }
+    board[i][j] = 0;
+    return c;
+}
 void getBoardCells(int board[][sudokuSize], vector<boardCell> & boardCells, int & Threshold, int nowS) {
     for(int i = 0; i < sudokuSize; ++i) {
         for(int j = 0; j < sudokuSize; ++j) {
@@ -73,19 +85,22 @@ bool gradientDescentToBoard(int board[][sudokuSize]) {
 
 bool descentOneCellToOneSolution(int board[][sudokuSize], vector<pair<int, int> > & hasNumber) {
     const unsigned long size = hasNumber.size();
-    printf("s = %lu\n", size);
+    const float all =  100.f / ((size * (size - 1)) / 2);
+    int progress = 0;
     for(int i = 0; i < size; ++i) {
-        printf("i = %d\n", i);
         const int & x1 = hasNumber[i].first, y1 = hasNumber[i].second;
         int tmp1 = board[x1][y1];
         board[x1][y1] = 0;
         for(int j = i + 1; j < size; ++j) {
-            printf("j = %d\n", j);
+            printf("descentOneCellToOneSolution = %.2f%%\n", ++progress * all);
             const int & x2 = hasNumber[j].first, y2 = hasNumber[j].second;
             int tmp2 = board[x2][y2];
             board[x2][y2] = 0;
-            int t = 2;
-            const boardCell & c = descentBoardCell(board, t);
+            const boardCell & cell = getOneSolutionBoardCell(board, x2, y2);
+            boardCell c = cell;
+            if(c.null == true) {
+                c = getOneSolutionBoardCell(board, x1, y1);
+            }
             if(c.null == false) {
                 board[c.x][c.y] = c.num;
                 hasNumber.push_back(make_pair(c.x, c.y));
@@ -118,7 +133,11 @@ void generateGradientDescentBoard(int board[][sudokuSize], const int spaceCount)
         vector<pair<int, int> > hasNumber = generateRandomWalkBoard_noBackTrack(board, spaceCount, Threshold);
         std::random_shuffle(hasNumber.begin(), hasNumber.end());
         descentStep = spaceCount - Threshold;
-        while(descentOneCellToOneSolution(board, hasNumber) && --descentStep);
+        int nowSpace = Threshold;
+        printf("NOW BLANKS : %d\n", nowSpace);
+        while(descentOneCellToOneSolution(board, hasNumber) && --descentStep) {
+            printf("NOW BLANKS : %d\n", ++nowSpace);
+        }
     } while(descentStep != 0);
 }
 

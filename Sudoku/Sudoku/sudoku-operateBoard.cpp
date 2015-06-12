@@ -131,7 +131,7 @@ int countSpace(const int board[][sudokuSize]) {
     int count = 0;
     for(int i = 0; i < sudokuSize; ++i) {
         for(int j = 0; j < sudokuSize; ++j) {
-            if(board[i][j] == 0) {
+            if(board[i][j] <= 0) {
                 ++count;
             }
         }
