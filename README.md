@@ -70,7 +70,7 @@ Problems:
 			   If need more blanks than goto 2. do similar things.
 			4. If 3. not found that two position then goto 1.
 	   version 2-th:
-		      	1. Use Random Walk generate 58 blanks
+			1. Use Random Walk generate 58 blanks
 			2. C(23, 2) one to blank, another to assigned a gradient descent cell to ONE solution then done.
 			   If need more blanks than goto 2. do similar things.
 			3. If 2. not found then goto 1.
