@@ -57,7 +57,6 @@ void randomChange2Units(int board[sudokuSize][sudokuSize]);
 
 /* generate non-unique solution sudoku board */
 bool generateSpaceBoard_NonUniqueSolution(int board[][sudokuSize], const int spaceCount);
-bool generateSpaceBoard_NonUniqueSolution_ByData(int board[][sudokuSize], const int spaceCount);
 /*********************************************/
 
 /* generate random full filled sudoku board */
