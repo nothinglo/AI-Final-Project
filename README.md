@@ -62,13 +62,19 @@ Problems:
 			1. Use Random Walk generate until done or it can't remove any position
 			2. If not done then generate new random filled board, goto 1.
 			
-	(Part Resolved) [Milestone #3]: How to generate blanks > 58 is very very difficult		
+	(Part Resolved) [Milestone #3]: How to generate blanks > 58 is very very difficult
+	   version 1-th:
 			1. Use Random Walk generate 58 blanks
 			2. Choose C(81 - 58, 2) equal C(23, 2) to remove
-			3. If one of C(23, 2) removed can be assign gradient descent cell to ONE solution then done.
+			3. If one of blank can be assigned a gradient descent cell to ONE solution then done.
 			   If need more blanks than goto 2. do similar things.
 			4. If 3. not found that two position then goto 1.
-			
+	   version 2-th:
+		      	1. Use Random Walk generate 58 blanks
+			2. C(23, 2) one to blank, another to assigned a gradient descent cell to ONE solution then done.
+			   If need more blanks than goto 2. do similar things.
+			3. If 2. not found then goto 1.
+	
 		(?)	[Milestone #3]: How to quickly decide the board is no solution (will speed up algorithms)
 
 		(?)	[Milestone #3]: How to quickly generate the board solution > 1 (may useful for gradient descent)
