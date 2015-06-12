@@ -53,11 +53,26 @@ Events:
 					while(space not enough) {
 						let a board cell to space that can be unique solution.
 					}
-Problem:
+Problems:
 
-	(Resolved) [Milestone #2]: level 11 may can't be generated in 1 sec.
-			   (Resolved in 2-th version)
-	
+	     (Resolved) [Milestone #2]: level 11 may can't be generated in 1 sec.
+			(Resolved in 2-th version)
+			
+	     (Resolved) [Milestone #3]: How to generate blanks > 55 && <= 58 is difficult
+			1. Use Random Walk generate until done or it can't remove any position
+			2. If not done then generate new random filled board, goto 1.
+			
+	(Part Resolved) [Milestone #3]: How to generate blanks > 58 is very very difficult		
+			1. Use Random Walk generate 58 blanks
+			2. Choose C(81 - 58, 2) equal C(23, 2) to remove
+			3. If one of C(23, 2) removed can be assign gradient descent cell to ONE solution then done.
+			   If need more blanks than goto 2. do similar things.
+			4. If 3. not found that two position then goto 1.
+			
+		(?)	[Milestone #3]: How to quickly decide the board is no solution (will speed up algorithms)
+
+		(?)	[Milestone #3]: How to quickly generate the board solution > 1 (may useful for gradient descent)
+			
 Project Plan:
 
 	/*** Milestone #1 ***/
