@@ -119,6 +119,17 @@ bool boardCheck(const int board[][sudokuSize], int x, int y, int num) {
      */
     return true;
 }
+vector<pair<int, int> > getHasBlank(const int board[][sudokuSize]) {
+    vector<pair<int, int> > hasBlanks;
+    for(int i = 0; i < sudokuSize; ++i) {
+        for(int j = 0; j < sudokuSize; ++j) {
+            if(board[i][j] == 0) {
+                hasBlanks.push_back(make_pair(i, j));
+            }
+        }
+    }
+    return hasBlanks;
+}
 vector<pair<int, int> > getHasNumber(const int board[][sudokuSize]) {
     vector<pair<int, int> > hasNumbers;
     for(int i = 0; i < sudokuSize; ++i) {
