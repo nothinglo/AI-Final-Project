@@ -20,7 +20,7 @@ const int block_size = sqrt(sudokuSize);
 const int DisturbCount = 100;
 
 const int minLevel = 1;
-const int maxLevel = 11;
+const int maxLevel = 12;
 
 const int levelSpaceStep = 5;
 

@@ -13,9 +13,7 @@
 #include "sudoku-genGradientDescentBoard.h"
 #include "sudoku-genRandomWalkBoard.h"
 #include "inputChecker.h"
-
 #include "logicalSolver.h"
-
 using namespace std;
 //arguments:
 //[level] [method]
@@ -41,7 +39,8 @@ int main(int argc, const char * argv[]) {
 		generateGradientDescentBoard(board, level * levelSpaceStep);
 	}
     printUIBoard(board);
-    printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board), countSpace(board));
-    
+
+	printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board)/*solveSudoku(board, false, true)*/, countSpace(board));
+
     return 0;
 }

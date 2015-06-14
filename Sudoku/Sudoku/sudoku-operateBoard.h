@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include "globalVar.h"
+#include "solver.h"
 
 using namespace std;
 

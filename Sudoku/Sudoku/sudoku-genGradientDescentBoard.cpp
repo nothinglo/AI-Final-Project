@@ -17,7 +17,7 @@ const boardCell getOneSolutionBoardCell(int board[][sudokuSize], int i, int j) {
     boardCell c(0);
     for(int k = 0; k < numbers.size(); ++k) {
         board[i][j] = numbers[k];
-        if(isSudokuUniqueSolution(board)) {
+		if (solveSudoku(board, false, true, true, 1) == 1) {
             return boardCell(i, j, numbers[k], 1);
         }
     }
@@ -32,7 +32,7 @@ void getBoardCells(int board[][sudokuSize], vector<boardCell> & boardCells, int 
                 boardCell c(Threshold);
                 for(int k = 0; k < numbers.size(); ++k) {
                     board[i][j] = numbers[k];
-                    int count = sudoku_answer_count(board, c.solutions);
+					int count = solveSudoku(board, false, true, true, c.solutions);
                     //printf("i = %d, j = %d, k = %d, c = %d, cs = %d\n", i, j, k, count, c.solutions);
                     if(count != 0 && count < c.solutions) {
                         c = boardCell(i, j, numbers[k], count);
@@ -63,14 +63,14 @@ const boardCell descentBoardCell(int board[][sudokuSize], int & Threshold) {
     return boardCells[0];
 }
 const boardCell descentBoardCell(int board[][sudokuSize]) {
-    int Threshold = min(UpperBoundOfFindSolution, sudoku_answer_count(board, UpperBoundOfFindSolution));
+	int Threshold = min(UpperBoundOfFindSolution, solveSudoku(board, false, true, true, UpperBoundOfFindSolution));
     return descentBoardCell(board, Threshold);
 }
 bool gradientDescentToBoard(int board[][sudokuSize]) {
     //printUIBoard(board);
     //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
-    int Threshold = sudoku_answer_count(board);
-    while(isSudokuUniqueSolution(board) == false) {
+	int Threshold = solveSudoku(board, false, true);
+    while(solveSudoku(board, false, true, true, 1) > 1) {
         vector<boardCell> boardCells;
         const boardCell & c = descentBoardCell(board, Threshold);
         if(c.null) {
@@ -92,7 +92,7 @@ bool descentOneCellToOneSolution(int board[][sudokuSize], vector<pair<int, int> 
         int tmp1 = board[x1][y1];
         board[x1][y1] = 0;
         for(int j = i + 1; j < size; ++j) {
-            printf("descentOneCellToOneSolution = %.2f%%\n", ++progress * all);
+            //printf("descentOneCellToOneSolution = %.2f%%\n", ++progress * all);
             const int & x2 = hasNumber[j].first, y2 = hasNumber[j].second;
             int tmp2 = board[x2][y2];
             board[x2][y2] = 0;
