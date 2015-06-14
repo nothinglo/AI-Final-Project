@@ -171,7 +171,7 @@ m3:
     
     nodes++;
     
-    if (th && Node[N4] > thres)
+    if (th && Node[N4] == thres)
     {
         return Node[N4];
     }

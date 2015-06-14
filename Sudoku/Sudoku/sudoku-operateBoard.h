@@ -36,6 +36,7 @@ bool generateByFileInputBoard(int board[][sudokuSize], const char *fileName);
 /********************************/
 
 /* board operation */
+vector<pair<int, int> > getHasNumber(const int board[][sudokuSize]);
 vector<int> maybeNumbers(int board[][sudokuSize], int x, int y);
 int countSpace(const int board[][sudokuSize]);
 void copyBoard(const int board[][sudokuSize], int nBoard[][sudokuSize]);

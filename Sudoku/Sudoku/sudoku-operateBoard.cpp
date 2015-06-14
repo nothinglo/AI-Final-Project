@@ -73,7 +73,7 @@ void findPlace(int board[][sudokuSize], int* sum, const int threshold, int x, in
 }
 bool isSudokuUniqueSolution(const int board[][sudokuSize]) {
 //    return sudoku_answer_count(board, 2) == 1;
-    return solveSudoku(board, false, true, true, 1) == 1;
+    return solveSudoku(board, false, true, true, 2) == 1;
 }
 bool isSudokuNoSolution(const int board[][sudokuSize]) {
 //    return sudoku_answer_count(board, 1) == 0;
@@ -119,7 +119,17 @@ bool boardCheck(const int board[][sudokuSize], int x, int y, int num) {
      */
     return true;
 }
-
+vector<pair<int, int> > getHasNumber(const int board[][sudokuSize]) {
+    vector<pair<int, int> > hasNumbers;
+    for(int i = 0; i < sudokuSize; ++i) {
+        for(int j = 0; j < sudokuSize; ++j) {
+            if(board[i][j] != 0) {
+                hasNumbers.push_back(make_pair(i, j));
+            }
+        }
+    }
+    return hasNumbers;
+}
 vector<int> maybeNumbers(int board[][sudokuSize], int x, int y) {
     vector<int> numbers;
     for(int num = 1; num <= sudokuSize; ++num) {

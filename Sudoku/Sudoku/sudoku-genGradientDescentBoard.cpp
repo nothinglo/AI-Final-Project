@@ -48,7 +48,7 @@ void getBoardCells(int board[][sudokuSize], vector<boardCell> & boardCells, int 
                     board[i][j] = numbers[k];
 					int count = solveSudoku(board, false, true, true, c.solutions);
                     //printf("i = %d, j = %d, k = %d, c = %d, cs = %d\n", i, j, k, count, c.solutions);
-                    if(count != 0 && count < c.solutions) {
+                    if(count != 0 && (count < c.solutions || boardCells.empty())) {
                         c = boardCell(i, j, numbers[k], count);
                         if(count == 1 || (nowS > 2000 && count < nowS / 10)) {
                             Threshold = count;
@@ -83,14 +83,17 @@ const boardCell descentBoardCell(int board[][sudokuSize]) {
 bool gradientDescentToBoard(int board[][sudokuSize]) {
     //printUIBoard(board);
     //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
-	int Threshold = solveSudoku(board, false, true);
+	int Threshold = min(UpperBoundOfFindSolution, solveSudoku(board, false, true, true, UpperBoundOfFindSolution));
+    cout << Threshold << endl;
     while(isSudokuUniqueSolution(board) == false) {
         vector<boardCell> boardCells;
         const boardCell & c = descentBoardCell(board, Threshold);
         if(c.null) {
+            cout << "fff" << endl;
             return false;
         }
         board[c.x][c.y] = c.num;
+        cout << "done : " << c.solutions << endl;
         //printUIBoard(board);
         //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
     }
@@ -156,3 +159,16 @@ void generateGradientDescentBoard(int board[][sudokuSize], const int spaceCount)
     } while(descentStep != 0);
 }
 
+void generateGradientDescentBoard_Back(int board[][sudokuSize], const int spaceCount) {
+    generateGradientDescentBoard(board, spaceCount);
+    vector<pair<int, int> > hasNumber = getHasNumber(board);
+    const int step = 5;
+    std::random_shuffle(hasNumber.begin(), hasNumber.end());
+    for(int i = 0; i < step; ++i) {
+        int index = rand() % hasNumber.size();
+        const int & x1 = hasNumber[index].first, y1 = hasNumber[index].second;
+        board[x1][y1] = 0;
+        hasNumber.erase(hasNumber.begin() + index);
+    }
+    gradientDescentToBoard(board);
+}

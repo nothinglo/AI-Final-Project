@@ -35,6 +35,7 @@ int main(int argc, const char * argv[]) {
         }
     } else if(argc == 3 && (strcmp(argv[2], "-s") == 0)) {
         generateGradientDescentBoard(board, atoi(argv[1]));
+        //generateGradientDescentBoard_Back(board, atoi(argv[1]));
     } else {
 		generateGradientDescentBoard(board, level * levelSpaceStep);
 	}
