@@ -27,7 +27,7 @@ bool randomWalk(int board[sudokuSize][sudokuSize], vector<int> candidates, int b
 		vector<int> explored;
 
 		// if removing selected cell can still get only one solution
-		if (solveSudoku(clone_board, false, true) == 1)
+		if (isSudokuUniqueSolution(board))
 		//if (isSudokuUniqueSolution(clone_board))
 		{
 			vector<int> nextLevelCandidates = candidates;
@@ -145,13 +145,13 @@ generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCoun
     }
     hasNumber = fullPos;
     space = initSpace;
-    int time = 0;
+    //int time = 0;
     while(space > 0) {
         int nowSpace = space;
         for(int i = 0; i < hasNumber.size(); ++i) {
             const int & x = hasNumber[i].first, y = hasNumber[i].second;
             board[x][y] = 0;
-			if (solveSudoku(board, false, true) == 1) {
+			if (isSudokuUniqueSolution(board)) {
                 hasNumber.erase(hasNumber.begin() + i);
                 --space;
                 break;

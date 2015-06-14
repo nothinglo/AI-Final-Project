@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E4918361B2DC173007518B4 /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E4918351B2DC173007518B4 /* solver.cpp */; };
 		4E81DCFF1B2576EF00E51ED6 /* consoleUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCEF1B2576EF00E51ED6 /* consoleUI.cpp */; };
 		4E81DD001B2576EF00E51ED6 /* inputChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF21B2576EF00E51ED6 /* inputChecker.cpp */; };
 		4E81DD011B2576EF00E51ED6 /* logicalSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E81DCF41B2576EF00E51ED6 /* logicalSolver.cpp */; };
@@ -29,6 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E4918341B2DBF74007518B4 /* solver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = solver.h; sourceTree = "<group>"; };
+		4E4918351B2DC173007518B4 /* solver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = solver.cpp; sourceTree = "<group>"; };
 		4E81DCEF1B2576EF00E51ED6 /* consoleUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = consoleUI.cpp; sourceTree = "<group>"; };
 		4E81DCF01B2576EF00E51ED6 /* consoleUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = consoleUI.h; sourceTree = "<group>"; };
 		4E81DCF11B2576EF00E51ED6 /* globalVar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globalVar.h; sourceTree = "<group>"; };
@@ -76,6 +79,8 @@
 		4EA167DC1B10BBC700428F78 /* Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				4E4918351B2DC173007518B4 /* solver.cpp */,
+				4E4918341B2DBF74007518B4 /* solver.h */,
 				4E81DCEF1B2576EF00E51ED6 /* consoleUI.cpp */,
 				4E81DCF01B2576EF00E51ED6 /* consoleUI.h */,
 				4E81DCF11B2576EF00E51ED6 /* globalVar.h */,
@@ -156,6 +161,7 @@
 				4E81DD091B257B2900E51ED6 /* sudoku-operateBoard.cpp in Sources */,
 				4E81DD021B2576EF00E51ED6 /* sudoku-genRandomWalkBoard.cpp in Sources */,
 				4E81DCFF1B2576EF00E51ED6 /* consoleUI.cpp in Sources */,
+				4E4918361B2DC173007518B4 /* solver.cpp in Sources */,
 				4E81DD041B2576EF00E51ED6 /* sudoku-genGradientDescentBoard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

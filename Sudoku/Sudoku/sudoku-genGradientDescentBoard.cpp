@@ -17,11 +17,25 @@ const boardCell getOneSolutionBoardCell(int board[][sudokuSize], int i, int j) {
     boardCell c(0);
     for(int k = 0; k < numbers.size(); ++k) {
         board[i][j] = numbers[k];
-		if (solveSudoku(board, false, true, true, 1) == 1) {
+		if (isSudokuUniqueSolution(board)) {
             return boardCell(i, j, numbers[k], 1);
         }
     }
     board[i][j] = 0;
+    return c;
+}
+const boardCell getOneSolutionBoardCellForAll(int board[][sudokuSize]) {
+    boardCell c(0);
+    for(int i = 0; i < sudokuSize; ++i) {
+        for(int j = 0; j < sudokuSize; ++j) {
+            if(board[i][j] == 0) {
+                const boardCell & ok = getOneSolutionBoardCell(board, i, j);
+                if(ok.null == false) {
+                    return ok;
+                }
+            }
+        }
+    }
     return c;
 }
 void getBoardCells(int board[][sudokuSize], vector<boardCell> & boardCells, int & Threshold, int nowS) {
@@ -70,7 +84,7 @@ bool gradientDescentToBoard(int board[][sudokuSize]) {
     //printUIBoard(board);
     //printf("answerCount = %d, spaceCount = %d\n", sudoku_answer_count(board), countSpace(board));
 	int Threshold = solveSudoku(board, false, true);
-    while(solveSudoku(board, false, true, true, 1) > 1) {
+    while(isSudokuUniqueSolution(board) == false) {
         vector<boardCell> boardCells;
         const boardCell & c = descentBoardCell(board, Threshold);
         if(c.null) {
@@ -85,8 +99,8 @@ bool gradientDescentToBoard(int board[][sudokuSize]) {
 
 bool descentOneCellToOneSolution(int board[][sudokuSize], vector<pair<int, int> > & hasNumber) {
     const unsigned long size = hasNumber.size();
-    const float all =  100.f / ((size * (size - 1)) / 2);
-    int progress = 0;
+//    const float all =  100.f / ((size * (size - 1)) / 2);
+//    int progress = 0;
     for(int i = 0; i < size; ++i) {
         const int & x1 = hasNumber[i].first, y1 = hasNumber[i].second;
         int tmp1 = board[x1][y1];
@@ -96,11 +110,12 @@ bool descentOneCellToOneSolution(int board[][sudokuSize], vector<pair<int, int> 
             const int & x2 = hasNumber[j].first, y2 = hasNumber[j].second;
             int tmp2 = board[x2][y2];
             board[x2][y2] = 0;
-            const boardCell & cell = getOneSolutionBoardCell(board, x2, y2);
-            boardCell c = cell;
-            if(c.null == true) {
-                c = getOneSolutionBoardCell(board, x1, y1);
-            }
+//            const boardCell & cell = getOneSolutionBoardCell(board, x2, y2);
+//            boardCell c = cell;
+//            if(c.null == true) {
+//                c = getOneSolutionBoardCell(board, x1, y1);
+//            }
+            const boardCell & c = getOneSolutionBoardCellForAll(board);
             if(c.null == false) {
                 board[c.x][c.y] = c.num;
                 hasNumber.push_back(make_pair(c.x, c.y));
@@ -123,7 +138,7 @@ void generateGradientDescentBoard(int board[][sudokuSize], const int spaceCount)
 //        isDone = gradientDescentToBoard(board);
 //    } while( isDone == false );
     
-    const int Threshold = 58;
+    const int Threshold = 60;
     if(spaceCount <= Threshold) {
         generateRandomWalkBoard_noBackTrack(board, spaceCount, Threshold);
         return;

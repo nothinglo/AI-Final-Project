@@ -7,6 +7,7 @@
 //
 
 #include "sudoku-operateBoard.h"
+#include "solver.h"
 #include <fstream>
 
 #include <algorithm>// std::random_shuffle
@@ -71,10 +72,12 @@ void findPlace(int board[][sudokuSize], int* sum, const int threshold, int x, in
     }
 }
 bool isSudokuUniqueSolution(const int board[][sudokuSize]) {
-    return sudoku_answer_count(board, 2) == 1;
+//    return sudoku_answer_count(board, 2) == 1;
+    return solveSudoku(board, false, true, true, 1) == 1;
 }
 bool isSudokuNoSolution(const int board[][sudokuSize]) {
-    return sudoku_answer_count(board, 1) == 0;
+//    return sudoku_answer_count(board, 1) == 0;
+    return solveSudoku(board, false, true, true, 1) == 0;
 }
 int sudoku_answer_count(const int board[][sudokuSize], const int threshold) {
     int sum = 0, tmpBoard[sudokuSize][sudokuSize];
