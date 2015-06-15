@@ -7,7 +7,6 @@
 // fill in all the certain number, and get stuck when none found.
 
 
-
 void updateAvalibilityData(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], int num, int posX, int posY)
 {
 
@@ -308,7 +307,7 @@ bool checkIfCanWriteThisHere(int board[][sudokuSize], int x, int y, int num)
 }
 
 void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
-							bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize])	
+							bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize], struct actionCount *actionsDone)	
 {
 
 	bool stuck=false;
@@ -319,6 +318,7 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 		bool foundInSelf= findNumSelf(canNumBeHere, &returnNum, &returnX, &returnY);
 		if(foundInSelf)
 		{
+			actionsDone->theOnlyCandidate++;
 			printf("found in Self (this block can only be this number!)\n");
 			putNumberHere( board, returnNum, returnX, returnY);
 
@@ -331,6 +331,7 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 			bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, &returnNum, &returnX, &returnY);
 			if (foundInX)
 			{
+				actionsDone->loneRanger++;
 				printf("found in X\n");
 				putNumberHere( board, returnNum, returnX, returnY);
 
@@ -343,6 +344,7 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 				bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, &returnNum, &returnX, &returnY);
 				if (foundInY)
 				{
+				actionsDone->loneRanger++;
 					printf("found in Y\n");
 					putNumberHere( board, returnNum, returnX, returnY);
 					updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
@@ -353,6 +355,7 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 					bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, &returnNum, &returnX, &returnY);
 					if (foundInBlock)
 					{
+				actionsDone->loneRanger++;
 						printf("found in Block\n");	
 						putNumberHere( board, returnNum, returnX, returnY);
 						updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
@@ -500,14 +503,14 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 }
 
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
-					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize])
+					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize], struct actionCount *actionsDone)
 {
 	int guessX, guessY;
 	bool candidate[sudokuSize];
 	int boardStatus;
 	while (true)
 	{
-		fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
+		fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, actionsDone);
 		boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
 		getchar();
 		if (boardStatus==1)
@@ -529,6 +532,10 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 			printf("Twin Elimination didn't help. We have to guess.\n");
 			break;
 		}
+		else
+		{
+			actionsDone->twinEliminate++; // if twin helped.
+		}
 	}
 
 
@@ -541,6 +548,7 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		bool backUp_waitingNumInThisX[sudokuSize][sudokuSize];
 		bool backUp_waitingNumInThisY[sudokuSize][sudokuSize];
 		bool backUp_waitingNumInThisBlock[sudokuSize][sudokuSize];
+		struct actionCount backUp_actionsDone;
 
 		memcpy(backUp_board, board, sizeof(int)*sudokuSize*sudokuSize);
 		memcpy(backUp_canNumBeHere, canNumBeHere, sizeof(bool)*sudokuSize*sudokuSize*sudokuSize);
@@ -548,10 +556,17 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		memcpy(backUp_waitingNumInThisY, waitingNumInThisY, sizeof(bool)*sudokuSize*sudokuSize);
 		memcpy(backUp_waitingNumInThisBlock, waitingNumInThisBlock, sizeof(bool)*sudokuSize*sudokuSize);
 
+		backUp_actionsDone.theOnlyCandidate=actionsDone->theOnlyCandidate;
+		backUp_actionsDone.loneRanger=actionsDone->loneRanger;
+		backUp_actionsDone.twinEliminate=actionsDone->twinEliminate;
+		backUp_actionsDone.wildGuess=actionsDone->wildGuess;
+
 		for (int candidateNum=0; candidateNum<sudokuSize; candidateNum++)	// try every candidate, if one doesn't work, undo it and try another
 		{
 			if (candidate[candidateNum])
 			{	
+				
+				actionsDone->wildGuess++;
 				printf("Guessing: ");
 				putNumberHere( board, candidateNum, guessX, guessY);
 				updateAvalibilityData(canNumBeHere, candidateNum, guessX, guessY);
@@ -559,7 +574,7 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 
 				getchar();
 
-				bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
+				bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, actionsDone);
 				if (guessSuccess)
 				{
 					return true;
@@ -572,6 +587,11 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 					memcpy(waitingNumInThisX, backUp_waitingNumInThisX, sizeof(bool)*sudokuSize*sudokuSize);
 					memcpy(waitingNumInThisY, backUp_waitingNumInThisY, sizeof(bool)*sudokuSize*sudokuSize);
 					memcpy(waitingNumInThisBlock, backUp_waitingNumInThisBlock, sizeof(bool)*sudokuSize*sudokuSize);
+
+					actionsDone->theOnlyCandidate=backUp_actionsDone.theOnlyCandidate;
+					actionsDone->loneRanger=backUp_actionsDone.loneRanger;
+					actionsDone->twinEliminate=backUp_actionsDone.twinEliminate;
+					actionsDone->wildGuess=backUp_actionsDone.wildGuess;
 				}
 			}
 		}
@@ -910,6 +930,16 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 
 }
 
+int howHard(struct actionCount actionsDone)
+{
+	int w1=1;	// theOnlyCandidate
+	int w2=2;	// loneRanger
+	int w3=10;	// twinEliminate
+	int w4=20;	// wildGuess
+	int score=actionsDone.theOnlyCandidate*w1+actionsDone.loneRanger*w2+actionsDone.twinEliminate*w3+actionsDone.wildGuess*w4;
+	return score;
+}
+
 int logicalSolver(int board[][sudokuSize])
 {
 	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[x][y][num]
@@ -921,13 +951,22 @@ int logicalSolver(int board[][sudokuSize])
 
 	initWaitingNum( board,  waitingNumInThisX,  waitingNumInThisY,  waitingNumInThisBlock);
 
+	struct actionCount actionsDone;
+	actionsDone.theOnlyCandidate=0;
+	actionsDone.loneRanger=0;
+	actionsDone.twinEliminate=0;
+	actionsDone.wildGuess=0;
+
 	printf("Finished initializing data\n");
 
-	bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock);
+	bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, &actionsDone);
 	if (guessSuccess)
 	{
 		printf("FOUND ANSWER!!!\n");
 		printUIBoard(board);
+
+		printf("Actions done:\ntheOnlyCandidate: %d\nloneRanger: %d\ntwinEliminate: %d\nwildGuess: %d\n", actionsDone.theOnlyCandidate, actionsDone.loneRanger, actionsDone.twinEliminate, actionsDone.wildGuess);
+		printf("\nSudoku Score: %d\n==================\n", howHard(actionsDone));
 	}
 	else
 	{

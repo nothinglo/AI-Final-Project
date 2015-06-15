@@ -2,9 +2,20 @@
 #include "sudoku-operateBoard.h"
 #include "consoleUI.h"
 
+
+struct actionCount
+{
+	int theOnlyCandidate;
+	int loneRanger;
+	int twinEliminate;
+	int wildGuess;
+};
+
 int logicalSolver(int board[][sudokuSize]);
 
 bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY, int*gotHintFrom);
+
+int howHard(struct actionCount actionsDone);
 
 int posToBlockNum(int x, int y);
 void blockNumToBasePos(int blockNum, int *x, int *y);
@@ -37,7 +48,7 @@ int decideNextStep(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudoku
 	//return -1 means this is dead end, we have done something wrong in the past; 0 means we cant decide which way to go; 1 means we have found the answer.
 
 bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], bool waitingNumInThisX[sudokuSize][sudokuSize], 
-					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize]);
+					  bool waitingNumInThisY[sudokuSize][sudokuSize], bool waitingNumInThisBlock[sudokuSize][sudokuSize], struct actionCount actionsDone);
 
 bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 
