@@ -192,10 +192,10 @@ void generateLevelBoard(int board[][sudokuSize], const int level) {
     int spaceCount = 0;
     switch (level) {
         case 0:
-            spaceCount = 45 + rand() % 5;
+            spaceCount = (firstLevelBlanksBound - 1) - rand() % 5;
             break;
         case 1:
-            spaceCount = 50 + rand() % 9;
+            spaceCount = firstLevelBlanksBound + rand() % (58 - firstLevelBlanksBound + 1);
             break;
         case 2:
             spaceCount = 62;
