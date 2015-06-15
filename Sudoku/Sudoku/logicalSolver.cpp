@@ -963,7 +963,7 @@ int howHard(struct actionCount actionsDone)
 		return 3;
 	if (actionsDone.twinEliminate>0)
 		return 2;
-	if (actionsDone.theOnlyCandidate+actionsDone.loneRanger<50)
+	if (actionsDone.theOnlyCandidate+actionsDone.loneRanger < firstLevelBlanksBound)
 		return 0;
 
 	return 1;

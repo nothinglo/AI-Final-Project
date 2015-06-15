@@ -27,4 +27,6 @@ const int InfiniteSolution = std::numeric_limits<int>::max();
 const int UpperBoundOfFindSolution = 150000;
 
 const int MaxSpaceCount = 64;
+
+const int firstLevelBlanksBound = 54;
 #endif
