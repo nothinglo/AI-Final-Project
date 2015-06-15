@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "logicalSolver.h"
 
+//#define DEBUG
 
 // ZorinLogicSolver(board) 
 // fill in all the certain number, and get stuck when none found.
@@ -150,7 +151,9 @@ void putNumberHere(int board[][sudokuSize], int num, int x, int y)
 	if (board[x][y]!=0)
 	{
 		printf("OOPS. Already have number here!!\n");
+#ifdef DEBUG
 		getchar();
+#endif
 		return;
 	}
 	board[x][y]=num+1;
@@ -512,7 +515,9 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 	{
 		fillInNumbersTillStuck(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, actionsDone);
 		boardStatus=decideNextStep(board, canNumBeHere, &guessX, &guessY, candidate);
+#ifdef DEBUG
 		getchar();
+#endif
 		if (boardStatus==1)
 		{
 			return true;	// FOUND ANSWER!!
@@ -520,13 +525,17 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		if (boardStatus==-1)	// something is wrong in upper layer
 		{
 			printf("Got myself in a dead end. Poping out\n");
+#ifdef DEBUG
 			getchar();
+#endif
 			return false;
 		}
 
 		printf("Trying twinElimination.\n");
 		bool twinsHelped = twinElimination(canNumBeHere);
+#ifdef DEBUG
 		getchar();
+#endif
 		if (!twinsHelped)	// if twins Helped, 重新繼續填數字看看, if not, 真的得猜了
 		{
 			printf("Twin Elimination didn't help. We have to guess.\n");
@@ -582,8 +591,10 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 				putNumberHere( board, num, guessX, guessY);
 				updateAvalibilityData(canNumBeHere, num, guessX, guessY);
 				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, num, guessX, guessY);
-
+				
+#ifdef DEBUG
 				getchar();
+#endif
 
 				bool guessSuccess = inSearchOfAnswer(board, canNumBeHere, waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, actionsDone);
 				if (guessSuccess)
@@ -609,12 +620,16 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		}
 		//	if tried all the candidate and haven't found the right one, something is wrong in earlier steps
 		printf("Tried all Candidates but still can't find the right one. Poping out\n");
+#ifdef DEBUG
 		getchar();
+#endif
 		return false;
 	}
 
 	printf("boardStatus should be one of -1, 0, or 1. if program reached here, something's wrong.");
+#ifdef DEBUG
 	getchar();
+#endif
 	return false;
 
 }
@@ -944,12 +959,14 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 
 int howHard(struct actionCount actionsDone)
 {
-	int w1=1;	// theOnlyCandidate
-	int w2=2;	// loneRanger
-	int w3=10;	// twinEliminate
-	int w4=20;	// wildGuess
-	int score=actionsDone.theOnlyCandidate*w1+actionsDone.loneRanger*w2+actionsDone.twinEliminate*w3+actionsDone.wildGuess*w4;
-	return score;
+	if (actionsDone.wildGuess>0)
+		return 3;
+	if (actionsDone.twinEliminate>0)
+		return 2;
+	if (actionsDone.theOnlyCandidate+actionsDone.loneRanger<45)
+		return 0;
+
+	return 1;
 }
 
 int logicalSolver(int board[][sudokuSize])
@@ -988,5 +1005,5 @@ int logicalSolver(int board[][sudokuSize])
 	}
 
 
-	return 0;
+	return howHard(actionsDone);
 }
