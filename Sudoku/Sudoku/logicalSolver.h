@@ -4,7 +4,7 @@
 
 int logicalSolver(int board[][sudokuSize]);
 
-bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY);
+bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY, int*gotHintFrom);
 
 int posToBlockNum(int x, int y);
 void blockNumToBasePos(int blockNum, int *x, int *y);

@@ -795,7 +795,7 @@ bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSiz
 
 }
 
-bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY)
+bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY, int*gotHintFrom)
 {
 	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
 	initCanNumBeHere(board, canNumBeHere);
@@ -804,10 +804,12 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 	bool waitingNumInThisY[sudokuSize][sudokuSize];
 	bool waitingNumInThisBlock[sudokuSize][sudokuSize];
 
+	initWaitingNum( board,  waitingNumInThisX,  waitingNumInThisY,  waitingNumInThisBlock);
 
 	bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, returnNum, returnX, returnY);
 	if (foundInX)
 	{
+		*gotHintFrom=0;
 		printf("found in X\n");
 		return true;
 
@@ -824,6 +826,7 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 		bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, returnNum, returnX, returnY);
 		if (foundInY)
 		{
+			*gotHintFrom=1;
 			printf("found in Y\n");
 			return true;
 
@@ -834,6 +837,7 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 			bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, returnNum, returnX, returnY);
 			if (foundInBlock)
 			{
+				*gotHintFrom=2;
 				printf("found in Block\n");	
 
 				return true;
