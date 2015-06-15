@@ -79,7 +79,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Sudoku\consoleUI.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\solver.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\sudoku-operateBoard.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sudoku\consoleUI.h" />
+    <ClInclude Include="..\..\..\Sudoku\globalVar.h" />
+    <ClInclude Include="..\..\..\Sudoku\solver.h" />
+    <ClInclude Include="..\..\..\Sudoku\sudoku-operateBoard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

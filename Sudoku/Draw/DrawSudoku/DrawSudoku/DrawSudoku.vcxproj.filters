@@ -18,5 +18,28 @@
     <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\sudoku-operateBoard.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\consoleUI.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\solver.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sudoku\globalVar.h">
+      <Filter>原始程式檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sudoku\sudoku-operateBoard.h">
+      <Filter>原始程式檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sudoku\consoleUI.h">
+      <Filter>原始程式檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sudoku\solver.h">
+      <Filter>原始程式檔</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
