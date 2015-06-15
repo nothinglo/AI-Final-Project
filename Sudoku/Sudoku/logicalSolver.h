@@ -19,7 +19,8 @@ void updateWatingNumData(bool waitingNumInThisX[sudokuSize][sudokuSize], bool wa
 						 bool waitingNumInThisBlock[sudokuSize][sudokuSize], int num, int posX, int posY);
 
 void putNumberHere(int board[][sudokuSize], int num, int x, int y);
-
+bool findNumSelf(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
+				 int *returnNum, int *returnX, int *returnY);
 bool findNumXDir(bool waitingNumInThisX[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
 				 int *returnNum, int *returnX, int *returnY);
 bool findNumYDir(bool waitingNumInThisY[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 

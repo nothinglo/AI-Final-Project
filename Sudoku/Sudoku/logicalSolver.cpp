@@ -158,6 +158,34 @@ void putNumberHere(int board[][sudokuSize], int num, int x, int y)
 	printUIBoard(board);
 }
 
+bool findNumSelf(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
+				 int *returnNum, int *returnX, int *returnY)
+{
+	for (int x=0; x<sudokuSize; x++)
+	{
+		for (int y=0; y<sudokuSize; y++)
+		{
+			int candiCount=0;
+			for (int num=0; num<sudokuSize; num++)
+			{
+				if(canNumBeHere[x][y][num])
+				{
+					candiCount++;
+					*returnNum=num;
+				}
+			}
+			if (candiCount==1)
+			{
+				*returnX=x;
+				*returnY=y;
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 bool findNumXDir(bool waitingNumInThisX[sudokuSize][sudokuSize], bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize], 
 				 int *returnNum, int *returnX, int *returnY)
 {
@@ -288,10 +316,10 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 	{
 		// X dir
 		int returnNum, returnX, returnY;
-		bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, &returnNum, &returnX, &returnY);
-		if (foundInX)
+		bool foundInSelf= findNumSelf(canNumBeHere, &returnNum, &returnX, &returnY);
+		if(foundInSelf)
 		{
-			printf("found in X\n");
+			printf("found in Self (this block can only be this number!)\n");
 			putNumberHere( board, returnNum, returnX, returnY);
 
 			// after putting this number down, other cell will be effected, update these
@@ -300,50 +328,63 @@ void fillInNumbersTillStuck(int board[][sudokuSize], bool canNumBeHere[sudokuSiz
 		}
 		else
 		{
-			bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, &returnNum, &returnX, &returnY);
-			if (foundInY)
+			bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, &returnNum, &returnX, &returnY);
+			if (foundInX)
 			{
-				printf("found in Y\n");
+				printf("found in X\n");
 				putNumberHere( board, returnNum, returnX, returnY);
-				updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+
+				// after putting this number down, other cell will be effected, update these
+				updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);	
 				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 			}
 			else
 			{
-				bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, &returnNum, &returnX, &returnY);
-				if (foundInBlock)
+				bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, &returnNum, &returnX, &returnY);
+				if (foundInY)
 				{
-					printf("found in Block\n");	
+					printf("found in Y\n");
 					putNumberHere( board, returnNum, returnX, returnY);
 					updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
 					updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 				}
 				else
 				{
-
-					printf("Can't find a certain step\n");
-
-					stuck=true;
-
-
-
-					// for debugging
-					/*					for (int num=0; num<sudokuSize; num++)			
+					bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, &returnNum, &returnX, &returnY);
+					if (foundInBlock)
 					{
-					printf("Num %d: \n", num+1);
-					for (int x=0; x<sudokuSize; x++)
-					{
-					for (int y=0; y<sudokuSize; y++)
-					{
-					printf("%d ", canNumBeHere[x][y][num]);
+						printf("found in Block\n");	
+						putNumberHere( board, returnNum, returnX, returnY);
+						updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+						updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 					}
-					printf("\n");
+					else
+					{
+
+						printf("Can't find a certain step\n");
+
+						stuck=true;
+
+
+
+						// for debugging
+						/*					for (int num=0; num<sudokuSize; num++)			
+						{
+						printf("Num %d: \n", num+1);
+						for (int x=0; x<sudokuSize; x++)
+						{
+						for (int y=0; y<sudokuSize; y++)
+						{
+						printf("%d ", canNumBeHere[x][y][num]);
+						}
+						printf("\n");
+						}
+						}*/
+						// for debugging
+
 					}
-					}*/
-					// for debugging
 
 				}
-
 			}
 		}
 		//		getchar();
@@ -795,6 +836,8 @@ bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSiz
 
 }
 
+
+
 bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*returnY, int*gotHintFrom)
 {
 	bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]; //[num][x][y]
@@ -806,53 +849,64 @@ bool hintOneStep(int board[][sudokuSize], int*returnNum, int*returnX, int*return
 
 	initWaitingNum( board,  waitingNumInThisX,  waitingNumInThisY,  waitingNumInThisBlock);
 
-	bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, returnNum, returnX, returnY);
-	if (foundInX)
+	bool foundInSelf= findNumSelf(canNumBeHere, returnNum, returnX, returnY);
+	if(foundInSelf)
 	{
-		*gotHintFrom=0;
-		printf("found in X\n");
+		*gotHintFrom=3;
+		printf("found in Self\n");
 		return true;
-
-		// after putting this number down, other cell will be effected, update these
-
-		// but since we don't expect to do this hint repeatly, we just recalculate all the data when we need to give a hint
-		// instead of maintaining the datas
-
-		//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);	
-		//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 	}
 	else
 	{
-		bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, returnNum, returnX, returnY);
-		if (foundInY)
+		bool foundInX=findNumXDir(waitingNumInThisX, canNumBeHere, returnNum, returnX, returnY);
+		if (foundInX)
 		{
-			*gotHintFrom=1;
-			printf("found in Y\n");
+			*gotHintFrom=0;
+			printf("found in X\n");
 			return true;
 
-			//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+			// after putting this number down, other cell will be effected, update these
+
+			// but since we don't expect to do this hint repeatly, we just recalculate all the data when we need to give a hint
+			// instead of maintaining the datas
+
+			//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);	
 			//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 		}
-		else{
-			bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, returnNum, returnX, returnY);
-			if (foundInBlock)
+		else
+		{
+			bool foundInY=findNumYDir(waitingNumInThisY, canNumBeHere, returnNum, returnX, returnY);
+			if (foundInY)
 			{
-				*gotHintFrom=2;
-				printf("found in Block\n");	
-
+				*gotHintFrom=1;
+				printf("found in Y\n");
 				return true;
 
 				//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
 				//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
 			}
-			else
-			{
-				printf("Can't find a certain step\n");
-				return false;
-			}
+			else{
+				bool foundInBlock=findNumBlock( waitingNumInThisBlock, canNumBeHere, returnNum, returnX, returnY);
+				if (foundInBlock)
+				{
+					*gotHintFrom=2;
+					printf("found in Block\n");	
 
+					return true;
+
+					//updateAvalibilityData(canNumBeHere, returnNum, returnX, returnY);
+					//updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, returnNum, returnX, returnY);
+				}
+				else
+				{
+					printf("Can't find a certain step\n");
+					return false;
+				}
+
+			}
 		}
 	}
+
 
 }
 
