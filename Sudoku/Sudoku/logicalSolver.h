@@ -9,6 +9,7 @@ struct actionCount
 	int loneRanger;
 	int twinEliminate;
 	int wildGuess;
+	int possibleBranchNum;
 };
 
 int logicalSolver(int board[][sudokuSize]);

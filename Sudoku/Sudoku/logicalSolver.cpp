@@ -560,17 +560,28 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 		backUp_actionsDone.loneRanger=actionsDone->loneRanger;
 		backUp_actionsDone.twinEliminate=actionsDone->twinEliminate;
 		backUp_actionsDone.wildGuess=actionsDone->wildGuess;
+		backUp_actionsDone.possibleBranchNum=actionsDone->possibleBranchNum;
 
-		for (int candidateNum=0; candidateNum<sudokuSize; candidateNum++)	// try every candidate, if one doesn't work, undo it and try another
+		int candidateCount=0;
+		for (int num=0; num<sudokuSize; num++)	// count our candidate (for evaluating how hard is the sudoku)
 		{
-			if (candidate[candidateNum])
+			if (candidate[num])
+			{
+				candidateCount++;
+			}
+		}
+
+		for (int num=0; num<sudokuSize; num++)	// try every candidate, if one doesn't work, undo it and try another
+		{
+			if (candidate[num])	// if this num is a possible candidate
 			{	
 				
 				actionsDone->wildGuess++;
+				actionsDone->possibleBranchNum+=candidateCount;
 				printf("Guessing: ");
-				putNumberHere( board, candidateNum, guessX, guessY);
-				updateAvalibilityData(canNumBeHere, candidateNum, guessX, guessY);
-				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, candidateNum, guessX, guessY);
+				putNumberHere( board, num, guessX, guessY);
+				updateAvalibilityData(canNumBeHere, num, guessX, guessY);
+				updateWatingNumData(waitingNumInThisX, waitingNumInThisY, waitingNumInThisBlock, num, guessX, guessY);
 
 				getchar();
 
@@ -592,6 +603,7 @@ bool inSearchOfAnswer(int board[][sudokuSize], bool canNumBeHere[sudokuSize][sud
 					actionsDone->loneRanger=backUp_actionsDone.loneRanger;
 					actionsDone->twinEliminate=backUp_actionsDone.twinEliminate;
 					actionsDone->wildGuess=backUp_actionsDone.wildGuess;
+					actionsDone->possibleBranchNum=backUp_actionsDone.possibleBranchNum;
 				}
 			}
 		}
@@ -956,6 +968,7 @@ int logicalSolver(int board[][sudokuSize])
 	actionsDone.loneRanger=0;
 	actionsDone.twinEliminate=0;
 	actionsDone.wildGuess=0;
+	actionsDone.possibleBranchNum=0;
 
 	printf("Finished initializing data\n");
 
@@ -965,7 +978,7 @@ int logicalSolver(int board[][sudokuSize])
 		printf("FOUND ANSWER!!!\n");
 		printUIBoard(board);
 
-		printf("Actions done:\ntheOnlyCandidate: %d\nloneRanger: %d\ntwinEliminate: %d\nwildGuess: %d\n", actionsDone.theOnlyCandidate, actionsDone.loneRanger, actionsDone.twinEliminate, actionsDone.wildGuess);
+		printf("Actions done:\ntheOnlyCandidate: %d\nloneRanger: %d\ntwinEliminate: %d\nwildGuess: %d\npossibleBranchNum: %d\n", actionsDone.theOnlyCandidate, actionsDone.loneRanger, actionsDone.twinEliminate, actionsDone.wildGuess, actionsDone.possibleBranchNum);
 		printf("\nSudoku Score: %d\n==================\n", howHard(actionsDone));
 	}
 	else
