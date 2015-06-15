@@ -26,9 +26,7 @@ int main(int argc, const char * argv[]) {
     
     srand((unsigned int)time(NULL));
     
-	if (argc == 3 && (strcmp(argv[2], "-RW")==0)) {
-		generateRandomWalkBoard(board, level * levelSpaceStep);
-	} else if(argc == 3 && (strcmp(argv[2], "-f") == 0)) {
+	if(argc == 3 && (strcmp(argv[2], "-f") == 0)) {
         if(generateByFileInputBoard(board, argv[1]) == false) {
             fprintf(stderr, "input file [%s] board format error.\n", argv[1]);
             return - 1;
@@ -37,7 +35,7 @@ int main(int argc, const char * argv[]) {
         generateGradientDescentBoard(board, atoi(argv[1]));
         //generateGradientDescentBoard_Back(board, atoi(argv[1]));
     } else {
-		generateGradientDescentBoard(board, level * levelSpaceStep);
+		generateLevelBoard(board, level);
 	}
     printUIBoard(board);
 

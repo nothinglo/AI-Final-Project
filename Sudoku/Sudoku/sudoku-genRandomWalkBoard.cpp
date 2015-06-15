@@ -1,3 +1,4 @@
+#include "logicalSolver.h"
 #include "sudoku-operateBoard.h"
 #include "sudoku-genRandomWalkBoard.h"
 #include "consoleUI.h"
@@ -131,7 +132,7 @@ void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount) {
 }
 
 vector<pair<int, int> >
-generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCount, const int Threshold) {
+generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCount, const int Threshold, const int level) {
     generateRandomFullFilledBoard(board);
     int answer[sudokuSize][sudokuSize];
     copyBoard(board, answer);
@@ -165,6 +166,43 @@ generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCoun
             hasNumber = fullPos;
         }
         std::random_shuffle(hasNumber.begin(), hasNumber.end());
+        
+        if((level == 0 || level == 1) && space == 0) {
+            int tmpBoard[sudokuSize][sudokuSize];
+            copyBoard(board, tmpBoard);
+            if(logicalSolver(tmpBoard) == level) {
+                return hasNumber;
+            } else {
+                space = initSpace;
+                generateRandomFullFilledBoard(board);
+                hasNumber = fullPos;
+            }
+        } else if(level >= 2) {
+            int tmpBoard[sudokuSize][sudokuSize];
+            copyBoard(board, tmpBoard);
+            if(logicalSolver(tmpBoard) == level) {
+                return hasNumber;
+            }
+        }
     }
     return hasNumber;
+}
+
+void generateLevelBoard(int board[][sudokuSize], const int level) {
+    int spaceCount = 0;
+    switch (level) {
+        case 0:
+            spaceCount = 45 + rand() % 5;
+            break;
+        case 1:
+            spaceCount = 50 + rand() % 9;
+            break;
+        case 2:
+            spaceCount = 62;
+            break;
+        case 3:
+            spaceCount = 62;
+            break;
+    }
+    generateRandomWalkBoard_noBackTrack(board, spaceCount, 100, level);
 }

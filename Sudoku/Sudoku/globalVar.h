@@ -19,10 +19,10 @@ const int block_size = sqrt(sudokuSize);
 
 const int DisturbCount = 100;
 
-const int minLevel = 1;
-const int maxLevel = 12;
+const int minLevel = 0;
+const int maxLevel = 3;
 
-const int levelSpaceStep = 5;
+const int level_1_Space = 45;
 
 const int InfiniteSolution = std::numeric_limits<int>::max();
 

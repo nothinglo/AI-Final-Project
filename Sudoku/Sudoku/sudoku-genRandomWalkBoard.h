@@ -10,6 +10,7 @@
 void generateRandomWalkBoard(int board[][sudokuSize], const int spaceCount);
 
 vector<pair<int, int> >
-generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCount, const int Threshold);
+generateRandomWalkBoard_noBackTrack(int board[][sudokuSize], const int spaceCount, const int Threshold, const int level = -1);
 
+void generateLevelBoard(int board[][sudokuSize], const int level);
 #endif

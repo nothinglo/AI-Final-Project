@@ -25,7 +25,7 @@ bool checkParameter(int argc, const char * argv[]) {
             fprintf(stderr, "space count must be 1 ~ %d.\n", MaxSpaceCount);
             return false;
         }
-    } else if(argc == 2 || (argc == 3 && strcmp(argv[2], "-RW") == 0)) {
+    } else if(argc == 2) {
         int level = atoi(argv[1]);
         if( (level >= minLevel && level <= maxLevel) == false ) {
             fprintf(stderr, "level range is : easy %d ~ difficult %d\n", minLevel, maxLevel);
