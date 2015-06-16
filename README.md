@@ -148,8 +148,12 @@ Reference:
 		see ch4 and ch5
 		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
 		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
-    6. [Sudoku PHP]
-        The author has updated it to version 2.0
-        Our demo web page is the old version
-        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
-        SudokuPHP : https://github.com/msoftware/phpsudoku
+    	6. [Sudoku PHP]
+	        The author has updated it to version 2.0
+	        Our demo web page is the old version
+	        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
+	        SudokuPHP : https://github.com/msoftware/phpsudoku
+
+	7. [There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration]
+		High speed solver code
+		http://www.math.uci.edu/~brusso/Sudoku16clue2013.pdf
