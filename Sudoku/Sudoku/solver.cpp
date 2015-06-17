@@ -7,16 +7,17 @@
 //
 
 #include "solver.h"
+#include <iostream>
 
 void InitSolver();
 
-int solveSudoku(const int board[N2][N2], bool all, bool count, bool th, int thres)
+int solveSudoku(const int board[N2][N2], bool all, bool count, bool th, int thres, vector<vector<int> > & allBoards)
 {
     int i, j, k, l, m0, m1, r, p, r1, c, c1, c2, x, y, s, minimum, clues, nodes;
     
     p = 1;
     if (count) p = 0;
-    if (all) p = 2;
+//    if (all) p = 2;
     
     clock();
     
@@ -129,15 +130,30 @@ m3:
     
     m0 = 0;
     
-    if (p)
+    if (all)
     {
         k = N4; j = N2; x = (r - 1) / k + 1; y = ((r - 1) % k) / j + 1; s = (r - 1) % j + 1; A[x][y] = s;
         if (i == N4)
         {
-            for (x = 1; x <= N2; x++)
-                for (y = 1; y <= N2; y++)
-                    printf("%c", L[A[x][y]]);
-            printf("\n");
+//            for (x = 1; x <= N2; x++)
+//                for (y = 1; y <= N2; y++)
+//                    printf("%c", L[A[x][y]]);
+//            printf("\n");
+            vector<int> b;
+//            for(x = 1; x <= N2; ++x) {
+//                for(y = 1; y <= N2; ++y) {
+//                    //b.push_back(L[A[x][y]]);
+//                }
+//            }
+            allBoards.push_back(b);
+            copy(&A[0][0], &A[0][0] + 100 * sizeof(int), back_inserter(allBoards.back()));
+//            for(x = 1; x <= N2; ++x) {
+//                for(y = 1; y <= N2; ++y) {
+//                    cout << allBoards.back()[x * 10 + y] << ", " << A[x][y] << endl;
+//                    //b.push_back(L[A[x][y]]);
+//                }
+//            }
+//            cin >> p;
             if (p == 1)
                 goto m6;
         }

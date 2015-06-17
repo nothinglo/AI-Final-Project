@@ -23,11 +23,13 @@ the M1-array and rows-deletion before start
 #include <time.h> 
 #include <memory.h>
 #include <string.h>
+#include <vector>
 
 #define N 3 // change this for larger sudokus , N=4 for 16*16 etc. 
 #define N2 N*N 
 #define N4 N2*N2 
 
+using namespace std;
 static int Rows[ 5 * N4 + 1 ];
 static int Row[ 5 * N4 + 1 ][ N2 + 1 ];
 static int Cols[ N2 * N4 + 1 ];
@@ -49,6 +51,8 @@ static char L[66] = ".123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw
 static bool g_bIsSudokuX = false;
 static bool g_bIsSudokuDG = false;
 
-int solveSudoku(const int board[N2][N2], bool all = false, bool count = false, bool th = false, int thres = 0);
+static vector<vector<int> > defaultBoards;
+
+int solveSudoku(const int board[N2][N2], bool all = false, bool count = false, bool th = false, int thres = 0, vector<vector<int> > & allBoards = defaultBoards);
 
 #endif

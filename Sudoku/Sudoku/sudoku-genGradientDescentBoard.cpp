@@ -104,6 +104,28 @@ const boardCell getOneSolutionBoardCellForAll(int board[][sudokuSize]) {
     }
     return c;
 }
+const boardCell getOneSolutionBoardCellForAll_Space(int board[][sudokuSize]) {
+    boardCell c(0);
+    vector<vector<int> > allBoards;
+    solveSudoku(board, true, true, false, 0, allBoards);
+    const int boardCount = (int)allBoards.size();
+    cout << "Count : " << boardCount << endl;
+    vector<pair<int, int> > blanks = getHasBlank(board);
+    for(int i = 0; i < blanks.size(); ++i) {
+        int num[sudokuSize] = { 0 };
+        int index = (blanks[i].first + 1) * (sudokuSize + 1) + blanks[i].second + 1;
+        for(int j = 0; j < boardCount; ++j) {
+            ++num[allBoards[j][index] - 1];
+        }
+        for(int j = 0; j < sudokuSize; ++j) {
+            if(num[j] == 1) {
+                board[blanks[i].first][blanks[i].second] = j + 1;
+                return boardCell(blanks[i].first, blanks[i].second, j + 1, 1);
+            }
+        }
+    }
+    return c;
+}
 bool getOneSolutionBoardCell_2(int board[][sudokuSize], int i, int j, int i2, int j2) {
     const vector<int> & numbers = maybeNumbers(board, i, j);
     for(int k = 0; k < numbers.size(); ++k) {
@@ -247,4 +269,70 @@ void generateGradientDescentBoard_Back(int board[][sudokuSize], const int spaceC
         hasNumber.erase(hasNumber.begin() + index);
     }
     gradientDescentToBoard(board);
+}
+
+void newGD(int board[][sudokuSize], const int spaceCount) {
+    
+    const int Threshold = 60;
+    if(spaceCount <= Threshold) {
+        generateRandomWalkBoard_noBackTrack(board, spaceCount, Threshold);
+        return;
+    }
+    vector<pair<int, int> > hasNumbers = generateRandomWalkBoard_noBackTrack(board, spaceCount, Threshold);
+    const int step = 5;
+    for(int i = 0; i < step; ++i) {
+        int index = rand() % hasNumbers.size();
+        board[hasNumbers[index].first][hasNumbers[index].second] = 0;
+        hasNumbers.erase(hasNumbers.begin() + index);
+    }
+    
+    vector<vector<int> > allBoards;
+    solveSudoku(board, true, true, false, 0, allBoards);
+
+    vector<pair<int, int> > blanks = getHasBlank(board);
+    
+    vector<int> boardsIndex;
+    const int count = (int)allBoards.size();
+    for(int i = 0; i < count; ++i) {
+        boardsIndex.push_back(i);
+    }
+    cout << "allBoards Count : " << count << endl;
+    boardCell c(InfiniteSolution);
+    int remove = -1;
+    while(c.solutions != 1) {
+        const int boardCount = (int)boardsIndex.size();
+        for(int i = 0; i < blanks.size(); ++i) {
+            int num[sudokuSize] = { 0 };
+            int index = (blanks[i].first + 1) * (sudokuSize + 1) + blanks[i].second + 1;
+            for(int j = 0; j < boardCount; ++j) {
+                ++num[allBoards[boardsIndex[j]][index] - 1];
+            }
+            for(int j = 0; j < sudokuSize; ++j) {
+                if(num[j] > 0 && num[j] < c.solutions) {
+                    remove = i;
+                    c = boardCell(blanks[i].first, blanks[i].second, j + 1, num[j]);
+                    if(c.solutions == 1) {
+                        break;
+                    }
+                }
+            }
+            if(c.solutions == 1) {
+                break;
+            }
+        }
+        board[c.x][c.y] = c.num;
+        blanks.erase(blanks.begin() + remove);
+        if(c.solutions == 1) {
+            return;
+        }
+        vector<int> newBIndex;
+        int index = (c.x + 1) * (sudokuSize + 1) + c.y + 1;
+        for(int j = 0; j < boardCount; ++j) {
+            if(allBoards[boardsIndex[j]][index] == c.num) {
+                newBIndex.push_back(boardsIndex[j]);
+            }
+        }
+        cout << boardCount << ", " << c.solutions << endl;
+        boardsIndex = newBIndex;
+    }
 }

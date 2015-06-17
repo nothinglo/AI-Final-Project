@@ -34,11 +34,12 @@ int main(int argc, const char * argv[]) {
     } else if(argc == 3 && (strcmp(argv[2], "-s") == 0)) {
         generateGradientDescentBoard(board, atoi(argv[1]));
         //generateGradientDescentBoard_Back(board, atoi(argv[1]));
+        //newGD(board, atoi(argv[1]));
     } else {
 		generateLevelBoard(board, level);
 	}
     printUIBoard(board);
-
+    
 	printf("ansCount = %d, countSpace = %d\n", sudoku_answer_count(board)/*solveSudoku(board, false, true)*/, countSpace(board));
 
     return 0;

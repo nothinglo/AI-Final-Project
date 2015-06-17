@@ -18,4 +18,6 @@ bool gradientDescentToBoard(int board[][sudokuSize]);
 void generateGradientDescentBoard(int board[][sudokuSize], const int spaceCount);
 
 void generateGradientDescentBoard_Back(int board[][sudokuSize], const int spaceCount);
+void newGD(int board[][sudokuSize], const int spaceCount);
 #endif /* defined(__Sudoku__sudoku_genGradientDescentBoard__) */
+
