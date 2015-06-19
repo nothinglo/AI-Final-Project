@@ -10,6 +10,26 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Sudoku\consoleUI.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\inputChecker.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\logicalSolver.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\solver.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\sudoku-generator.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\sudoku-genGradientDescentBoard.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\sudoku-genRandomWalkBoard.cpp" />
+    <ClCompile Include="..\..\..\Sudoku\sudoku-operateBoard.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sudoku\consoleUI.h" />
+    <ClInclude Include="..\..\..\Sudoku\globalVar.h" />
+    <ClInclude Include="..\..\..\Sudoku\inputChecker.h" />
+    <ClInclude Include="..\..\..\Sudoku\logicalSolver.h" />
+    <ClInclude Include="..\..\..\Sudoku\solver.h" />
+    <ClInclude Include="..\..\..\Sudoku\sudoku-genGradientDescentBoard.h" />
+    <ClInclude Include="..\..\..\Sudoku\sudoku-genRandomWalkBoard.h" />
+    <ClInclude Include="..\..\..\Sudoku\sudoku-operateBoard.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CDDDA583-2A41-4953-986C-E43B9A37A6D3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -76,24 +96,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Sudoku\consoleUI.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\inputChecker.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\sudoku-another-way.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\sudoku-answer-count.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\sudoku-board.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\sudoku-digging.cpp" />
-    <ClCompile Include="..\..\..\Sudoku\sudoku-generator.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Sudoku\consoleUI.h" />
-    <ClInclude Include="..\..\..\Sudoku\globalVar.h" />
-    <ClInclude Include="..\..\..\Sudoku\inputChecker.h" />
-    <ClInclude Include="..\..\..\Sudoku\sudoku-another-way.h" />
-    <ClInclude Include="..\..\..\Sudoku\sudoku-answer-count.h" />
-    <ClInclude Include="..\..\..\Sudoku\sudoku-board.h" />
-    <ClInclude Include="..\..\..\Sudoku\sudoku-digging.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

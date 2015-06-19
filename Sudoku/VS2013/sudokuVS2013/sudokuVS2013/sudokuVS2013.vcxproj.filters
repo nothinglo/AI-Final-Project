@@ -21,19 +21,22 @@
     <ClCompile Include="..\..\..\Sudoku\inputChecker.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sudoku\sudoku-another-way.cpp">
+    <ClCompile Include="..\..\..\Sudoku\logicalSolver.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Sudoku\sudoku-answer-count.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sudoku\sudoku-board.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Sudoku\sudoku-digging.cpp">
+    <ClCompile Include="..\..\..\Sudoku\solver.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Sudoku\sudoku-generator.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\sudoku-genGradientDescentBoard.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\sudoku-genRandomWalkBoard.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sudoku\sudoku-operateBoard.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,16 +50,19 @@
     <ClInclude Include="..\..\..\Sudoku\inputChecker.h">
       <Filter>原始程式檔</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sudoku\sudoku-another-way.h">
+    <ClInclude Include="..\..\..\Sudoku\logicalSolver.h">
       <Filter>原始程式檔</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sudoku\sudoku-answer-count.h">
+    <ClInclude Include="..\..\..\Sudoku\solver.h">
       <Filter>原始程式檔</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sudoku\sudoku-board.h">
+    <ClInclude Include="..\..\..\Sudoku\sudoku-genGradientDescentBoard.h">
       <Filter>原始程式檔</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sudoku\sudoku-digging.h">
+    <ClInclude Include="..\..\..\Sudoku\sudoku-genRandomWalkBoard.h">
+      <Filter>原始程式檔</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sudoku\sudoku-operateBoard.h">
       <Filter>原始程式檔</Filter>
     </ClInclude>
   </ItemGroup>
