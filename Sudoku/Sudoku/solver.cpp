@@ -8,7 +8,7 @@
 
 #include "solver.h"
 #include <iostream>
-
+#include <iterator>
 void InitSolver();
 
 int solveSudoku(const int board[N2][N2], bool all, bool count, bool th, int thres, vector<vector<int> > & allBoards)

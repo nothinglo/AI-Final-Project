@@ -1,7 +1,6 @@
-
+#ifndef LogicalSolver_h
+#define LogicalSolver_h
 #include "sudoku-operateBoard.h"
-#include "consoleUI.h"
-
 
 struct actionCount
 {
@@ -56,3 +55,15 @@ bool twinElimination( bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInX(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInY(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
 bool twinsEliminationInBlock(bool canNumBeHere[sudokuSize][sudokuSize][sudokuSize]);
+
+vector<int> getCandidateList(int x, int y, bool candidates[][sudokuSize][sudokuSize]);
+
+/* use simple elimination & lone ranger to solve board till stuck */
+void eliminateTillStuck(int board[][sudokuSize], int &blankCount);
+/*********************************************/
+
+/* generate really random complete sudoku board */
+bool generateRealRandomCompleteBoard(int board[][sudokuSize]);
+/*********************************************/
+
+#endif

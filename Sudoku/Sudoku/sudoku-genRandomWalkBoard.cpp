@@ -206,3 +206,38 @@ void generateLevelBoard(int board[][sudokuSize], const int level) {
     }
     generateRandomWalkBoard_noBackTrack(board, spaceCount, 100, level);
 }
+
+void generateRandomWalkBoardWithConstraint(int board[][sudokuSize], vector<vector<bool> > pattern)
+{
+	const int disturbCount = 100;
+	int answered_board[sudokuSize][sudokuSize] = {
+		{ 6, 3, 9, 2, 4, 1, 7, 8, 5 },
+		{ 2, 8, 4, 7, 6, 5, 1, 9, 3 },
+		{ 5, 1, 7, 9, 8, 3, 6, 2, 4 },
+		{ 1, 2, 3, 8, 5, 7, 9, 4, 6 },
+		{ 7, 9, 6, 4, 3, 2, 8, 5, 1 },
+		{ 4, 5, 8, 6, 1, 9, 2, 3, 7 },
+		{ 3, 4, 2, 1, 7, 8, 5, 6, 9 },
+		{ 8, 6, 1, 5, 9, 4, 3, 7, 2 },
+		{ 9, 7, 5, 3, 2, 6, 4, 1, 8 },
+	};
+
+	do {
+		// disturb the board
+		for (int i = 0; i < disturbCount; i++)
+		{
+			randomChange2Units(answered_board);
+		}
+
+		for (int i = 0; i < sudokuSize; i++)
+		{
+			for (int j = 0; j < sudokuSize; j++)
+			{
+				board[i][j] = (pattern[i][j]) ? answered_board[i][j] : 0;
+			}
+		}
+	} while (!isSudokuUniqueSolution(board));
+
+	printf("answer count = %d\n", sudoku_answer_count(board));
+
+}
