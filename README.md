@@ -3,18 +3,27 @@
 Chinese version:
 
 	目標: 數獨出題
-	1. 使用者可自行選擇題目難易
-	2. 自定義題目的 pattern (使用者可以指定題目出在哪些位置)
-	3. 產生題目解答及解法（能越符合人類思考或者越容易理解）
-
-	模式:
-	1. 無限制時間
-	2. 限制時間
-	3. 多人共同遊戲（maybe 81x81)
+	1. 可以產生使用者指定難度的數獨題目
+	2. 可以產生使用者指定 pattern 的數獨題目 (使用者可以指定有數字的部分出現在哪些位置)
+	3. 可以產生 17 clues 的數獨題目越快越好
 
 English version:
 
-	TBA.
+	1. Generate Sudoku puzzles with different difficulties.
+	2. Generate user-specified-pattern Sudoku puzzle.
+	3. Generate 17 clues Sudoku as soon as possible.
+
+Final solution:
+
+	1. Implement logical solver to mimic the way human solve Sudoku.
+	   (Simple Elimination, Lone Ranger, Twins Elimination, Wild Guess)
+	   Randomly generate Sudoku until it meets the difficulty that we want.
+	2. Generate random complete Sudoku and keep the numbers in the pattern area.
+	   For each remaining numbers, remove it and fill in candidate that can make current Sudoku easier
+	   (maybe reduce solution counts).
+	3. For 21 clues or more, local search is quick enough.
+	   For 20 clues ~ 19 clues, remove 2 clues and insert 1 clues (Gradient Descent)
+	   For 18 clues ~ 17 clues, remove 3 clues and insert 2 clues (Gradient Descent)
 
 Schedule:
 
