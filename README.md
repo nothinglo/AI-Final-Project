@@ -27,6 +27,32 @@ Final solution:
 
 ![Our Poster](https://github.com/nothinglo/AI-Final-Project/blob/master/Sudoku/Final-Image/Poster.jpg)
 
+Reference:
+
+	1. [Sudoku Puzzles Generating: from Easy to Evil]:
+		http://zhangroup.aporc.org/images/files/Paper_3485.pdf
+	2. [Sudoku Generation and Difficulty Metrics]
+		http://www.longwood.edu/assets/mathematics/Team2975_ProblemB.pdf
+	3. [The Model and Algorithm to Estimate the Difficulty Levels of Sudoku Puzzles]
+		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
+	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
+		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
+	5. [Programming Sudoku]
+		see ch4 and ch5
+		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
+		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
+    	6. [Sudoku PHP]
+	        The author has updated it to version 2.0
+	        Our demo web page is the old version
+	        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
+	        SudokuPHP : https://github.com/msoftware/phpsudoku
+
+	7. [There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration]
+		High speed solver code
+		http://www.math.uci.edu/~brusso/Sudoku16clue2013.pdf
+
+================= 以下是專案進行中的產物 =================
+
 Schedule:
 
 	2015/05/12-2015/05/19:
@@ -144,27 +170,3 @@ Project Plan:
 	name: 產生解法步驟
 	description: 使用者可以輕鬆的了解此題目該如何解決
 	detail: simple algorithm is 將電腦的解法 step-by-step show 給使用者看
-
-Reference:
-
-	1. [Sudoku Puzzles Generating: from Easy to Evil]:
-		http://zhangroup.aporc.org/images/files/Paper_3485.pdf
-	2. [Sudoku Generation and Difficulty Metrics]
-		http://www.longwood.edu/assets/mathematics/Team2975_ProblemB.pdf
-	3. [The Model and Algorithm to Estimate the Difficulty Levels of Sudoku Puzzles]
-		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
-	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
-		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
-	5. [Programming Sudoku]
-		see ch4 and ch5
-		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
-		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
-    	6. [Sudoku PHP]
-	        The author has updated it to version 2.0
-	        Our demo web page is the old version
-	        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
-	        SudokuPHP : https://github.com/msoftware/phpsudoku
-
-	7. [There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration]
-		High speed solver code
-		http://www.math.uci.edu/~brusso/Sudoku16clue2013.pdf
