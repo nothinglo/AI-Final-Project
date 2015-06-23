@@ -25,6 +25,8 @@ Final solution:
 	   For 20 clues ~ 19 clues, remove 2 clues and insert 1 clues (Gradient Descent)
 	   For 18 clues ~ 17 clues, remove 3 clues and insert 2 clues (Gradient Descent)
 
+![alt tag](https://raw.github.com/nothinglo/AI-Final-Project/tree/master/Sudoku/Final-Image/Poster.jpg)
+
 Schedule:
 
 	2015/05/12-2015/05/19:
