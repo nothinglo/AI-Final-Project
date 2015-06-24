@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>353</width>
-    <height>268</height>
+    <height>146</height>
    </rect>
   </property>
   <property name="font">
@@ -19,8 +19,8 @@
   <property name="windowTitle">
    <string>QNewGameDialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
     <widget class="QRadioButton" name="rAuto">
      <property name="text">
       <string>自動出題</string>
@@ -30,63 +30,51 @@
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="gAuto">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>150</height>
-      </size>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="1,2">
-      <item row="0" column="1">
-       <widget class="QComboBox" name="cDifficulty">
-        <item>
-         <property name="text">
-          <string>初級</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>中級</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>高級</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>魔王級</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="lDifficulty">
-        <property name="text">
-         <string>難度</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
+   <item row="2" column="0" colspan="2">
     <widget class="QRadioButton" name="rManual">
      <property name="text">
       <string>手動出題</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QPushButton" name="bGenerate">
+     <property name="font">
+      <font>
+       <family>微軟正黑體</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Generate</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="cDifficulty">
+     <item>
+      <property name="text">
+       <string>初級</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>中級</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>高級</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>魔王級</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -99,16 +87,20 @@
      </property>
     </spacer>
    </item>
-   <item>
-    <widget class="QPushButton" name="bGenerate">
-     <property name="font">
-      <font>
-       <family>微軟正黑體</family>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
+   <item row="1" column="0">
+    <widget class="QRadioButton" name="rClues">
      <property name="text">
-      <string>Generate</string>
+      <string>自訂格子數</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="cClueCount">
+     <property name="minimum">
+      <number>19</number>
+     </property>
+     <property name="maximum">
+      <number>80</number>
      </property>
     </widget>
    </item>

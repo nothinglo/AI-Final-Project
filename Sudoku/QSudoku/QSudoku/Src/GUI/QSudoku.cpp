@@ -49,15 +49,23 @@ void QSudoku::OpenNewGameDialog()
 	m_newGame->show();
 }
 
-void QSudoku::newGame(bool manual)
+void QSudoku::newGame(GenerateMode mode)
 {
-	if (manual)
+	switch (mode)
 	{
+	case DIFFICULTIES:
+		m_game->newGameAuto();
+		break;
+	case CLUES:
+		m_game->newGameAuto();
+		break;
+	case SUDOKU_PATTERN:
 		m_game->newGameManual();
 		ui.statusBar->showMessage("[Space] : Draw, [C] : Clear, [Enter] : Confirm");
+		break;
+	default:
+		break;
 	}
-	else
-		m_game->newGameAuto();
 }
 
 void QSudoku::ChangeToBigBoard()

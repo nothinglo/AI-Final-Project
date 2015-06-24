@@ -43,6 +43,9 @@ public:
 	// generate board by some algorithms
 	void newGameAuto();
 
+	// generate board by specified clues
+	void newGameClues();
+
 	// generate a blank board that user can draw something on it
 	void newGameManual();
 
@@ -86,7 +89,7 @@ private:
 
 	// generate board according to specified difficulty and method
 	// the variables can be found at QNewGameDialog
-	void generateBoard(void);
+	void generateBoard(bool m);
 
 	// after generating the board, store it as original one 
 	void storeOriginalBoard(void);

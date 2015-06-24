@@ -6,6 +6,7 @@
 
 const enum Difficulty {EASY, NORMAL, ADVANCED, EVIL};
 const enum Method {GRADIENT_DESCENT, RANDOM_WALK};
+const enum GenerateMode {DIFFICULTIES, CLUES, SUDOKU_PATTERN};
 
 class QNewGameDialog : public QWidget
 {
@@ -20,7 +21,9 @@ public:
 	static QNewGameDialog *Instance;
 
 	Difficulty difficulty;
+	unsigned int clueCount;
 	Method method;
+	GenerateMode gMode;
 	bool mode; // true = auto, false = manual
 
 private:
@@ -29,6 +32,7 @@ private:
 private slots:
 	void modeAuto(bool b);
 	void modeManual(bool b);
+	void modeClues(bool b);
 	void confirm();
 };
 

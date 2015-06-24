@@ -97,11 +97,19 @@ void QSudokuGame::updateDuration(void)
 	durationUpdated(m_duration);
 }
 
-void QSudokuGame::generateBoard(void) 
+void QSudokuGame::generateBoard(bool m) 
 {
 	int board[sudokuSize][sudokuSize];
 
-	generateLevelBoard(board, QNewGameDialog::getInstance()->difficulty);
+	if (m)
+	{
+		generateLevelBoard(board, QNewGameDialog::getInstance()->difficulty);
+	}
+	else
+	{
+		generateGradientDescentBoard(board, sudokuLength - QNewGameDialog::getInstance()->clueCount);
+	}
+	
 
 	int test[sudokuSize][sudokuSize];
 	copyBoard(board, test);
@@ -124,7 +132,16 @@ void QSudokuGame::storeOriginalBoard(void)
 void QSudokuGame::newGameAuto(void) 
 {
 	initialize();
-	generateBoard();
+
+	if (QNewGameDialog::getInstance()->gMode == GenerateMode::DIFFICULTIES)
+	{
+		generateBoard(true);
+	}
+	else if (QNewGameDialog::getInstance()->gMode == GenerateMode::CLUES)
+	{
+		generateBoard(false);
+	}
+	
 
 	m_duration = 0;
 	m_durationTimer = new QTimer(this);
@@ -138,6 +155,11 @@ void QSudokuGame::newGameManual()
 
 	// go to the "drawing" mode for user to draw something
 	m_scene->setManualMode();
+}
+
+void QSudokuGame::newGameClues()
+{
+
 }
 
 bool QSudokuGame::isBoardValid() 
@@ -190,3 +212,4 @@ void QSudokuGame::showOneStepHint()
 		m_scene->setOneStepHint(x, y, num + 1, type);
 	}
 }
+

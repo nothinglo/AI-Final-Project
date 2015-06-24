@@ -17,7 +17,7 @@ class QSudoku : public QMainWindow
 public:
 	QSudoku(QWidget *parent = 0);
 	~QSudoku();
-	void newGame(bool manual);
+	void newGame(GenerateMode mode);
 
 	static QSudoku* getInstance();
 

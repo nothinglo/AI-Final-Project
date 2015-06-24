@@ -9,6 +9,7 @@ QNewGameDialog::QNewGameDialog(QWidget *parent)
 	ui.setupUi(this);
 
 	connect(ui.rAuto, SIGNAL(clicked(bool)), this, SLOT(modeAuto(bool)));
+	connect(ui.rClues, SIGNAL(clicked(bool)), this, SLOT(modeClues(bool)));
 	connect(ui.rManual, SIGNAL(clicked(bool)), this, SLOT(modeManual(bool)));
 	connect(ui.bGenerate, SIGNAL(clicked()), this, SLOT(confirm()));
 }
@@ -30,21 +31,28 @@ QNewGameDialog* QNewGameDialog::getInstance()
 
 void QNewGameDialog::modeAuto(bool b)
 {
-	ui.gAuto->setEnabled(true);
-	b ? printf("true\n") : printf("false\n");
+	ui.cDifficulty->setEnabled(true);
+	ui.cClueCount->setEnabled(false);
 }
 
 void QNewGameDialog::modeManual(bool b)
 {
-	ui.gAuto->setEnabled(false);
-	b ? printf("true\n") : printf("false\n");
+	ui.cDifficulty->setEnabled(false);
+	ui.cClueCount->setEnabled(false);
+}
+
+void QNewGameDialog::modeClues(bool b)
+{
+	ui.cDifficulty->setEnabled(false);
+	ui.cClueCount->setEnabled(true);
 }
 
 void QNewGameDialog::init()
 {
 	ui.rAuto->setChecked(true);
-	ui.gAuto->setEnabled(true);
+	ui.cDifficulty->setEnabled(true);
 	ui.cDifficulty->setCurrentIndex(0);
+	ui.cClueCount->setEnabled(false);
 	//ui.cMethod->setCurrentIndex(0);
 }
 
@@ -52,7 +60,7 @@ void QNewGameDialog::confirm()
 {
 	if (ui.rAuto->isChecked())
 	{
-		mode = true;
+		gMode = GenerateMode::DIFFICULTIES;
 		switch (ui.cDifficulty->currentIndex())
 		{
 		case 0:
@@ -70,24 +78,18 @@ void QNewGameDialog::confirm()
 		default:
 			break;
 		}
-
-		/*switch (ui.cMethod->currentIndex())
-		{
-		case 0:
-			method = GRADIENT_DESCENT;
-			break;
-		case 1:
-			method = RANDOM_WALK;
-			break;
-		default:
-			break;
-		}*/
 	}
-	else
+	else if (ui.rClues->isChecked())
 	{
-		mode = false;
+		gMode = GenerateMode::CLUES;
+		clueCount = ui.cClueCount->value();
+	}
+	else if (ui.rManual->isChecked())
+	{
+		gMode = GenerateMode::SUDOKU_PATTERN;
+		clueCount = ui.cClueCount->value();
 	}
 
-	QSudoku::getInstance()->newGame(!mode);
+	QSudoku::getInstance()->newGame(gMode);
 	hide();
 }
