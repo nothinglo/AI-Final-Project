@@ -1,5 +1,7 @@
 # AI-Final-Project
 
+Final Result: https://www.youtube.com/watch?v=D-5D5BbZsE4 (Youtube Link)
+
 Chinese version:
 
 	目標: 數獨出題
