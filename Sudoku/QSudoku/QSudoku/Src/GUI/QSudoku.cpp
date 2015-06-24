@@ -93,4 +93,10 @@ void QSudoku::ChangeToSmallBoard()
 void QSudoku::HintOneStep()
 {
 	m_game->showOneStepHint();
+	ui.statusBar->showMessage("[Enter] : Confirm to continue");
+}
+
+void QSudoku::ClearStatusBar()
+{
+	ui.statusBar->clearMessage();
 }

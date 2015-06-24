@@ -1,4 +1,5 @@
 #include "QSudokuScene.h"
+#include "QSudoku.h"
 #include "consoleUI.h"
 
 QSudokuScene * QSudokuScene::Instance = NULL;
@@ -235,6 +236,7 @@ void QSudokuScene::keyPressEvent(QKeyEvent *event)
 				m_elements[x][y].update();
 			}
 		}
+		QSudoku::getInstance()->ClearStatusBar();
 	}
 }
 

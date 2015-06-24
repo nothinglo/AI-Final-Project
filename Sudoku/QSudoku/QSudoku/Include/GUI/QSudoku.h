@@ -18,7 +18,7 @@ public:
 	QSudoku(QWidget *parent = 0);
 	~QSudoku();
 	void newGame(GenerateMode mode);
-
+	void ClearStatusBar();
 	static QSudoku* getInstance();
 
 private:
