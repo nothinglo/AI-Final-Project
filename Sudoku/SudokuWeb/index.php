@@ -7,15 +7,22 @@
 <body>
 
 <center><form name ="form1" method ="post">
-<input type = "TEXT" placeholder = "Enter the level(1~10)" size="25" name = "level" style="font-size:20px;font-family:Consolas">
+<input type = 'Radio' name ='way' value= 'cluesNumber' checked="checked">
+<label style="font-size:24px;font-family:Consolas">Specified Number of Clues</label>
+<br><br>
+<input type = "TEXT" placeholder = "Enter the clues(20~80)" size="25" name = "clues" style="font-size:20px;font-family:Consolas">
+<br><br>
+<input type = 'Radio' name ='way' value= 'difficulty' >
+<label style="font-size:24px;font-family:Consolas">Specified Level of Difficulties</label>
+<br><br>
+<select name ='difficult'>
+  <option value="easy" style="font-size:20px;font-family:Consolas">Easy</option>
+  <option value="medium" style="font-size:20px;font-family:Consolas">Simple</option>
+  <option value="hard" style="font-size:20px;font-family:Consolas">Hard</option>
+  <option value="master" style="font-size:20px;font-family:Consolas">Master</option>
+</select>
+<br><br>
 <input type = "Submit" name = "Submit1" value = "Generate" style="font-size:20px;font-family:Consolas">
-<br>
-<br>
-<input type = 'Radio' name ='way' value= 'GradientDescent' >
-<label style="font-size:24px;font-family:Consolas">Gradient Descent</label>
-<br>
-<input type = 'Radio' name ='way' value= 'RandomWalk' style="font-family:Consolas">
-<label style="font-size:24px;font-family:Consolas">RandomWalk</label>
 </center></form>
 
 <center><div id=sudoku>
@@ -26,54 +33,83 @@
 
 <tr><td>
 <?php
-function getParameters (&$level=1, &$method=0)
+function getParameters (&$clues=20, &$level=1, &$method=0)
 {
     if(!empty($_POST)) {
-        $level = (int)$_POST['level'];
-
-        if($level > 0 && $level <= 10)
+        $clues = (int)$_POST['clues'];
+        
+        $selected_radio = $_POST['way'];
+        
+        if ($selected_radio == 'cluesNumber') 
         {
-            $selected_radio = $_POST['way'];
-            
-            if ($selected_radio == 'GradientDescent') 
+            if($clues >= 20 && $clues <= 80)
             {
                 $method = 0;
                 return True;
             }
-            else if ($selected_radio == 'RandomWalk') 
+            else return False;
+        }
+        else if ($selected_radio == 'difficulty')
+        {
+            $selected_level = $_POST['difficult'];
+            echo('<center>');
+            echo($selected_level);
+            echo('</center>');
+            if ($selected_level == 'easy')
             {
                 $method = 1;
+                $level = 0;
+                return True;
+            }    
+            else if ($selected_level == 'medium')
+            {
+                $method = 1;
+                $level = 1;
                 return True;
             }
-            return False;
+            else if ($selected_level == 'hard')
+            {
+                $method = 1;
+                $level = 2;
+                return True;
+            }
+            else if ($selected_level == 'master')
+            {
+                $method = 1;
+                $level = 3;
+                return True;
+            }
+            else return False;
         }
-        return False;
+        else return False;
     }
     return False;
 }
 
-function getSudoku ($level=5, $method=0)
+function getSudoku ($clues=20, $level=5, $method=0)
 {
 	$contents = "";
     if ($method == 0)
     {
-        $contents = shell_exec("./sudoku-generator $level -php");
+        $clues = 81 - $clues;
+        $contents = shell_exec("./sudoku-generator $clues -s");
     }
     else if ($method == 1)
     {
-        $contents = shell_exec("./sudoku-generator $level -a -php");
+        $contents = shell_exec("./sudoku-generator $level");
     }
 	return $contents;
 }
 
-$level     = 1;
+$level     = 0;
+$clues     = 20;
 $method    = 0;
 
-if (getParameters($level, $method))
+if (getParameters($clues, $level, $method))
 {
-    $sudokustr = getSudoku ($level, $method);
+    $sudokustr = getSudoku ($clues, $level, $method);
 	$sudoku    = explode(";", $sudokustr);
-
+    
 	echo "<table cellspacing=0 cellpadding=1 border=0 bgcolor=#000000>";
 	$count = 0;
 	for ($x = 0; $x < 9; $x++)
