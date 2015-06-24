@@ -3,18 +3,55 @@
 Chinese version:
 
 	目標: 數獨出題
-	1. 使用者可自行選擇題目難易
-	2. 自定義題目的 pattern (使用者可以指定題目出在哪些位置)
-	3. 產生題目解答及解法（能越符合人類思考或者越容易理解）
-
-	模式:
-	1. 無限制時間
-	2. 限制時間
-	3. 多人共同遊戲（maybe 81x81)
+	1. 可以產生使用者指定難度的數獨題目
+	2. 可以產生使用者指定 pattern 的數獨題目 (使用者可以指定有數字的部分出現在哪些位置)
+	3. 可以產生 17 clues 的數獨題目越快越好
 
 English version:
 
-	TBA.
+	1. Generate Sudoku puzzles with different difficulties.
+	2. Generate user-specified-pattern Sudoku puzzle.
+	3. Generate 17 clues Sudoku as soon as possible.
+
+Final solution:
+
+	1. Implement logical solver to mimic the way human solve Sudoku.
+	   (Simple Elimination, Lone Ranger, Twins Elimination, Wild Guess)
+	   Randomly generate Sudoku until it meets the difficulty that we want.
+	2. Generate random complete Sudoku and keep the numbers in the pattern area.
+	   For each remaining numbers, remove it and fill in candidate that can make current Sudoku easier
+	   (maybe reduce solution counts).
+	3. For 21 clues or more, local search is quick enough.
+	   For 20 clues ~ 19 clues, remove 2 clues and insert 1 clues (Gradient Descent)
+	   For 18 clues ~ 17 clues, remove 3 clues and insert 2 clues (Gradient Descent)
+
+![Our Poster](https://github.com/nothinglo/AI-Final-Project/blob/master/Sudoku/Final-Image/Poster.jpg)
+
+Reference:
+
+	1. [Sudoku Puzzles Generating: from Easy to Evil]:
+		http://zhangroup.aporc.org/images/files/Paper_3485.pdf
+	2. [Sudoku Generation and Difficulty Metrics]
+		http://www.longwood.edu/assets/mathematics/Team2975_ProblemB.pdf
+	3. [The Model and Algorithm to Estimate the Difficulty Levels of Sudoku Puzzles]
+		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
+	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
+		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
+	5. [Programming Sudoku]
+		see ch4 and ch5
+		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
+		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
+    	6. [Sudoku PHP]
+	        The author has updated it to version 2.0
+	        Our demo web page is the old version
+	        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
+	        SudokuPHP : https://github.com/msoftware/phpsudoku
+
+	7. [There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration]
+		High speed solver code
+		http://www.math.uci.edu/~brusso/Sudoku16clue2013.pdf
+
+================= 以下是專案進行中的產物 =================
 
 Schedule:
 
@@ -133,27 +170,3 @@ Project Plan:
 	name: 產生解法步驟
 	description: 使用者可以輕鬆的了解此題目該如何解決
 	detail: simple algorithm is 將電腦的解法 step-by-step show 給使用者看
-
-Reference:
-
-	1. [Sudoku Puzzles Generating: from Easy to Evil]:
-		http://zhangroup.aporc.org/images/files/Paper_3485.pdf
-	2. [Sudoku Generation and Difficulty Metrics]
-		http://www.longwood.edu/assets/mathematics/Team2975_ProblemB.pdf
-	3. [The Model and Algorithm to Estimate the Difficulty Levels of Sudoku Puzzles]
-		http://www.ccsenet.org/journal/index.php/jmr/article/viewFile/3732/3336
-	4. [A Retrievable Genetic Algorithm for Efficient Solving of Sudoku Puzzles]
-		http://waset.org/publications/9998148/a-retrievable-genetic-algorithm-for-efficient-solving-of-sudoku-puzzles
-	5. [Programming Sudoku]
-		see ch4 and ch5
-		這本書裡面的解法會找出唯一可能數值的格子。像人的解法。
-		http://tulips.ntu.edu.tw/search~S5*cht?/Xsudoku&searchscope=5&SORT=DZ/Xsudoku&searchscope=5&SORT=DZ&SUBKEY=sudoku/1%2C15%2C15%2CB/frameset&FF=Xsudoku&searchscope=5&SORT=DZ&3%2C3%2C
-    	6. [Sudoku PHP]
-	        The author has updated it to version 2.0
-	        Our demo web page is the old version
-	        Ours : http://www.csie.ntu.edu.tw/~r03922058/Sudoku/
-	        SudokuPHP : https://github.com/msoftware/phpsudoku
-
-	7. [There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem via Hitting Set Enumeration]
-		High speed solver code
-		http://www.math.uci.edu/~brusso/Sudoku16clue2013.pdf
