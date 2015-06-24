@@ -7,25 +7,30 @@ Chinese version:
 	目標: 數獨出題
 	1. 可以產生使用者指定難度的數獨題目
 	2. 可以產生使用者指定 pattern 的數獨題目 (使用者可以指定有數字的部分出現在哪些位置)
-	3. 可以產生 17 clues 的數獨題目越快越好
+	3. 可以產生 17 clues 的數獨題目越快越好 (被證明數獨盤面最少需要 17 clues) [7]
 
 English version:
 
 	1. Generate Sudoku puzzles with different difficulties.
 	2. Generate user-specified-pattern Sudoku puzzle.
-	3. Generate 17 clues Sudoku as soon as possible.
+	3. Generate 17 clues Sudoku as soon as possible. (Proved in 2012 that minimum clues = 17) [7]
 
 Final solution:
 
 	1. Implement logical solver to mimic the way human solve Sudoku.
 	   (Simple Elimination, Lone Ranger, Twins Elimination, Wild Guess)
 	   Randomly generate Sudoku until it meets the difficulty that we want.
+	   Difficulty: How to implement logical solver correctly and quickly?
+
 	2. Generate random complete Sudoku and keep the numbers in the pattern area.
 	   For each remaining numbers, remove it and fill in candidate that can make current Sudoku easier
 	   (maybe reduce solution counts).
+	   Difficulty: How to satisfy the only one valid solution in real-time?
+
 	3. For 21 clues or more, local search is quick enough.
-	   For 20 clues ~ 19 clues, remove 2 clues and insert 1 clues (Gradient Descent)
-	   For 18 clues ~ 17 clues, remove 3 clues and insert 2 clues (Gradient Descent)
+	   For 20 clues ~ 19 clues, remove 2 clues and insert 1 clues (Add Gradient Descent)
+	   For 18 clues ~ 17 clues, remove 3 clues and insert 2 clues (Add Gradient Descent)
+	   Difficulty: How to combine Gradient Descent and Local Search?
 
 ![Our Poster](https://github.com/nothinglo/AI-Final-Project/blob/master/Sudoku/Final-Image/Poster.jpg)
 
